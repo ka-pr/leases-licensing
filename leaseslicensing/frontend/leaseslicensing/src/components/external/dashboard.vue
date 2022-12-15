@@ -25,13 +25,14 @@
             />
         </FormSection>
 
+        <!-- Compliances with Conditions -->
         <FormSection 
             :formCollapse="false" 
-            label="Compliances" 
-            subtitle="- View submitted Compliances and submit new ones" 
-            Index="compliances"
-        >
-            <CompliancesTable
+            label="Conditions" 
+            subtitle="- View submitted Conditions and submit new ones" 
+            Index="conditions" 
+        > 
+            <ConditionsTable
                 level="external"
             />
         </FormSection>
@@ -45,7 +46,7 @@ import FormSection from "@/components/forms/section_toggle.vue"
 import ApplicationsTable from "@/components/common/table_proposals"
 //import WaitingListTable from "@/components/common/table_approvals"
 import LicencesAndPermitsTable from "@/components/common/table_approvals"
-import CompliancesTable from "@/components/common/table_compliances"
+import ConditionsTable from "@/components/common/table_conditions"
 //import AuthorisedUserApplicationsTable from "@/components/common/table_approval_to_be_endorsed"
 import { api_endpoints, helpers } from '@/utils/hooks'
 
@@ -73,7 +74,7 @@ export default {
         ApplicationsTable,
         //WaitingListTable,
         LicencesAndPermitsTable,
-        CompliancesTable,
+        ConditionsTable,
         //AuthorisedUserApplicationsTable,
     },
     watch: {

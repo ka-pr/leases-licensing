@@ -567,16 +567,20 @@ export default {
         },
         submitter_id: function(){
             if (this.proposal.submitter){
-                return this.proposal.submitter.id
-            } else {
+                return this.proposal.submitter.id;
+            } else if (this.proposal.applicant_obj) {
                 return this.proposal.applicant_obj.id
+            } else {
+                return ''
             }
         },
         submitter_email: function(){
             if (this.proposal.submitter){
                 return this.proposal.submitter.email
-            } else {
+            } else if (this.proposal.applicant_obj) {
                 return this.proposal.applicant_obj.email
+            } else {
+                return ''
             }
         },
         proposal_form_url: function() {
@@ -1434,7 +1438,12 @@ export default {
     created: async function() {
         console.log('in created')
         try {
+            // const res = await fetch(`/api/proposal/${this.$route.params.proposal_id}/internal_proposal.json`);
+            // const res = await this.$http.get(api_endpoints.get_internalProposal(this.approvalId));
+            // const res = await fetch(helpers.add_endpoint_json(api_endpoints.proposal, (this.$route.params.proposal_id + '/switch_status')));
+            
             const res = await fetch(`/api/proposal/${this.$route.params.proposal_id}/internal_proposal.json`);
+            
             const resData = await res.json();
             this.proposal = Object.assign({}, resData);
             this.hasAmendmentRequest=this.proposal.hasAmendmentRequest;

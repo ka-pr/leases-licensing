@@ -507,25 +507,30 @@ export default {
         },
         discardProposal: function(proposal_id) {
             let vm = this;
-            swal({
+            swal.fire({
                 title: "Discard Application",
                 text: "Are you sure you want to discard this application?",
-                type: "warning",
+                icon: "warning",
                 showCancelButton: true,
                 confirmButtonText: 'Discard Application',
                 confirmButtonColor:'#dc3545'
-            }).then(() => {
-                fetch(api_endpoints.discard_proposal(proposal_id), { method: 'DELETE', })
-                .then((response) => {
-                    swal(
-                        'Discarded',
-                        'Your application has been discarded',
-                        'success'
-                    )
-                    //vm.$refs.application_datatable.vmDataTable.ajax.reload();
-                    vm.$refs.application_datatable.vmDataTable.draw();
-                }, (error) => {
-                });
+            }).then((result) => {
+                // Only discard when the user clicks on `Discard Application`
+                if (!result.isConfirmed) {
+                    console.log("Not discarded");
+                } else {
+                    fetch(api_endpoints.discard_proposal(proposal_id), { method: 'DELETE', })
+                    .then((response) => {
+                        swal.fire(
+                            'Discarded',
+                            'Your application has been discarded',
+                            'success'
+                        )
+                        //vm.$refs.application_datatable.vmDataTable.ajax.reload();
+                        vm.$refs.application_datatable.vmDataTable.draw();
+                    }, (error) => {
+                    });
+                }
             },(error) => {
 
             });
