@@ -93,16 +93,11 @@
             </div>
         </div>
         <VueAlert :show.sync="showError" type="danger" style="color: red"><strong>{{errorString}}</strong></VueAlert>
-        <div>
+        <div class="container">
             <div class="row">
                 <div class="col-sm-2 pull-right">
-                    <input
-                        :disabled="valid_button_disabled"
-                        @click="validate_map_docs"
-                        type="button"
-                        value="Validate"
-                        class="btn btn-primary w-100"
-                    />
+                    <button type="button" v-if="is_validating" disabled class="btn btn-primary w-100 mh-100"><div class="row"><div class="col-sm-7 px-0 w-75 text-truncate">Validate</div><div class="col-sm-4 px-0 w-25"><i class="fa fa-spinner fa-spin"></i></div></div></button>
+                    <button type="button" v-else class="btn btn-primary w-100 mh-100 text-nowrap" @click="validate_map_docs"><div class="row"><div class="col-sm-12 text-nowrap text-truncate">Validate</div></div></button>
                 </div>
             </div>
         </div>
@@ -168,6 +163,8 @@ export default {
             newFeatureId: 1,
             errorString: '',
             showError:false,
+            set_mode: set_mode,
+            is_validating: false,
         }
     },
     props: {
@@ -253,6 +250,7 @@ export default {
         },
         validate_map_docs: function(){
             let vm = this;
+            vm.is_validating = true;
             vm.showError=false;
             vm.errorString='';
             vm.$http.post(helpers.add_endpoint_json(api_endpoints.proposals,vm.proposal.id+'/validate_map_files')).then(res=>{
