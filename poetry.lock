@@ -47,8 +47,8 @@ files = [
 lazy-object-proxy = ">=1.4.0"
 typing-extensions = {version = ">=4.0.0", markers = "python_version < \"3.11\""}
 wrapt = [
-    {version = ">=1.11,<2", markers = "python_version < \"3.11\""},
     {version = ">=1.14,<2", markers = "python_version >= \"3.11\""},
+    {version = ">=1.11,<2", markers = "python_version < \"3.11\""},
 ]
 
 [[package]]
@@ -165,13 +165,13 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "certifi"
-version = "2024.7.4"
+version = "2024.8.30"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2024.7.4-py3-none-any.whl", hash = "sha256:c198e21b1289c2ab85ee4e67bb4b4ef3ead0892059901a8d5b622f24a1101e90"},
-    {file = "certifi-2024.7.4.tar.gz", hash = "sha256:5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b"},
+    {file = "certifi-2024.8.30-py3-none-any.whl", hash = "sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8"},
+    {file = "certifi-2024.8.30.tar.gz", hash = "sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9"},
 ]
 
 [[package]]
@@ -773,13 +773,13 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "executing"
-version = "2.0.1"
+version = "2.1.0"
 description = "Get the currently executing AST node of a frame, and other information"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.8"
 files = [
-    {file = "executing-2.0.1-py2.py3-none-any.whl", hash = "sha256:eac49ca94516ccc753f9fb5ce82603156e590b27525a8bc32cce8ae302eb61bc"},
-    {file = "executing-2.0.1.tar.gz", hash = "sha256:35afe2ce3affba8ee97f2d69927fa823b08b472b7b994e36a52a964b93d16147"},
+    {file = "executing-2.1.0-py2.py3-none-any.whl", hash = "sha256:8d63781349375b5ebccc3142f4b30350c0cd9c79f921cde38be2be4637e98eaf"},
+    {file = "executing-2.1.0.tar.gz", hash = "sha256:8ea27ddd260da8150fa5a708269c4a10e76161e2496ec3e587da9e3c0fe4b9ab"},
 ]
 
 [package.extras]
@@ -803,35 +803,36 @@ typing = ["typing-extensions (>=4.8)"]
 
 [[package]]
 name = "fiona"
-version = "1.9.6"
+version = "1.10.0"
 description = "Fiona reads and writes spatial data files"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "fiona-1.9.6-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:63e528b5ea3d8b1038d788e7c65117835c787ba7fdc94b1b42f09c2cbc0aaff2"},
-    {file = "fiona-1.9.6-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:918bd27d8625416672e834593970f96dff63215108f81efb876fe5c0bc58a3b4"},
-    {file = "fiona-1.9.6-cp310-cp310-manylinux2014_x86_64.whl", hash = "sha256:e313210b30d09ed8f829bf625599e248dadd78622728030221f6526580ff26c5"},
-    {file = "fiona-1.9.6-cp310-cp310-win_amd64.whl", hash = "sha256:89095c2d542325ee45894b8837e8048cdbb2f22274934e1be3b673ca628010d7"},
-    {file = "fiona-1.9.6-cp311-cp311-macosx_10_15_x86_64.whl", hash = "sha256:98cea6f435843b2119731c6b0470e5b7386aa16b6aa7edabbf1ed93aefe029c3"},
-    {file = "fiona-1.9.6-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:f4230eccbd896a79d1ebfa551d84bf90f512f7bcbe1ca61e3f82231321f1a532"},
-    {file = "fiona-1.9.6-cp311-cp311-manylinux2014_x86_64.whl", hash = "sha256:48b6218224e96de5e36b5eb259f37160092260e5de0dcd82ca200b1887aa9884"},
-    {file = "fiona-1.9.6-cp311-cp311-win_amd64.whl", hash = "sha256:c1dd5fbc29b7303bb87eb683455e8451e1a53bb8faf20ef97fdcd843c9e4a7f6"},
-    {file = "fiona-1.9.6-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:42d8a0e5570948d3821c493b6141866d9a4d7a64edad2be4ecbb89f81904baac"},
-    {file = "fiona-1.9.6-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:39819fb8f5ec6d9971cb01b912b4431615a3d3f50c83798565d8ce41917930db"},
-    {file = "fiona-1.9.6-cp312-cp312-manylinux2014_x86_64.whl", hash = "sha256:9b53034efdf93ada9295b081e6a8280af7c75496a20df82d4c2ca46d65b85905"},
-    {file = "fiona-1.9.6-cp312-cp312-win_amd64.whl", hash = "sha256:1dcd6eca7524535baf2a39d7981b4a46d33ae28c313934a7c3eae62eecf9dfa5"},
-    {file = "fiona-1.9.6-cp37-cp37m-macosx_10_15_x86_64.whl", hash = "sha256:e5404ed08c711489abcb3a50a184816825b8af06eb73ad2a99e18b8e7b47c96a"},
-    {file = "fiona-1.9.6-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:53bedd2989e255df1bf3378ae9c06d6d241ec273c280c544bb44ffffebb97fb0"},
-    {file = "fiona-1.9.6-cp37-cp37m-win_amd64.whl", hash = "sha256:77653a08564a44e634c44cd74a068d2f55d1d4029edd16d1c8aadcc4d8cc1d2c"},
-    {file = "fiona-1.9.6-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:e7617563b36d2be99f048f0d0054b4d765f4aae454398f88f19de9c2c324b7f8"},
-    {file = "fiona-1.9.6-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:50037c3b7a5f6f434b562b5b1a5b664f1caa7a4383b00af23cdb59bfc6ba852c"},
-    {file = "fiona-1.9.6-cp38-cp38-manylinux2014_x86_64.whl", hash = "sha256:bf51846ad602757bf27876f458c5c9f14b09421fac612f64273cc4e3fcabc441"},
-    {file = "fiona-1.9.6-cp38-cp38-win_amd64.whl", hash = "sha256:11af1afc1255642a7787fe112c29d01f968f1053e4d4700fc6f3bb879c1622e0"},
-    {file = "fiona-1.9.6-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:52e8fec650b72fc5253d8f86b63859acc687182281c29bfacd3930496cf982d1"},
-    {file = "fiona-1.9.6-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:c9b92aa1badb2773e7cac19bef3064d73e9d80c67c42f0928db2520a04be6f2f"},
-    {file = "fiona-1.9.6-cp39-cp39-manylinux2014_x86_64.whl", hash = "sha256:0eaffbf3bfae9960484c0c08ea461b0c40e111497f04e9475ebf15ac7a22d9dc"},
-    {file = "fiona-1.9.6-cp39-cp39-win_amd64.whl", hash = "sha256:f1b49d51a744874608b689f029766aa1e078dd72e94b44cf8eeef6d7bd2e9051"},
-    {file = "fiona-1.9.6.tar.gz", hash = "sha256:791b3494f8b218c06ea56f892bd6ba893dfa23525347761d066fb7738acda3b1"},
+    {file = "fiona-1.10.0-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:2f8c6e7d2e5e2dc3b72b520cd160ca6d3689748b20d35b518eec9073f5a3c5bf"},
+    {file = "fiona-1.10.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b2a42fb0a7168003015ab9648712f7d7eb971237af3c9be6000df69cd4b97ba7"},
+    {file = "fiona-1.10.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d95a93d6d37e04232b141d9f08190b30e7dc368126a34342d764b9d0a857d770"},
+    {file = "fiona-1.10.0-cp310-cp310-win_amd64.whl", hash = "sha256:382cffc905d44a933951857ae07f79cf59567db08f4201ed2a28f9f9bcc86932"},
+    {file = "fiona-1.10.0-cp311-cp311-macosx_10_15_x86_64.whl", hash = "sha256:2854fca6478ca3c1dc3f06531025550046f405488909a5be11ea97e4c55894db"},
+    {file = "fiona-1.10.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:ef27d75046e57b3e55c4b5d4e1bf7e43ef490e73ada5e86f9b148aa23a2e7fd4"},
+    {file = "fiona-1.10.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:16072f9313f60220310951561c5df29122d078d26316455dc58516c330881d35"},
+    {file = "fiona-1.10.0-cp311-cp311-win_amd64.whl", hash = "sha256:1a7f28c5667d5cb05891fd00ed8ca2d3067bb58c90ca928a2741c0da74daf10d"},
+    {file = "fiona-1.10.0-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:d099b1b5ab99db1d144ac47f657e14471178537d878ebd016c37afdf37303399"},
+    {file = "fiona-1.10.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:8ad1ea80555bc56047d4b4e60c9424cf66875f161b3e56ebd60fa0574dc6693f"},
+    {file = "fiona-1.10.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a273cc957e86289609b47155f75d60c2cc37974a92618e016f75bc5ab9cc2dec"},
+    {file = "fiona-1.10.0-cp312-cp312-win_amd64.whl", hash = "sha256:ef44b3b0704244503a5f12ae92ca88b2cf4fedc9fd881b00c7c58b6899ca5133"},
+    {file = "fiona-1.10.0-cp313-cp313-macosx_10_15_x86_64.whl", hash = "sha256:80929d220a92b50592b5ce96233d631c61a3c9b9bebd26ea136e7e48ffb50616"},
+    {file = "fiona-1.10.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:82514e8cc113245f2c7deda1c66f0aba67b183e20404365bbb7347e12b35c80f"},
+    {file = "fiona-1.10.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8c1a555b2546d3c69d0826a526a5c3e50a1cd330c95e2e0ebf6e82fa81fc2d96"},
+    {file = "fiona-1.10.0-cp313-cp313-win_amd64.whl", hash = "sha256:bf11de868ab601b8d917dc38719b39bf8bdeaadc4fda9964d96b4b354e528fff"},
+    {file = "fiona-1.10.0-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:c0e72c4ed6ce7e2b2531a62844f3216528c149b55b89ff2881bcfe34d3b37300"},
+    {file = "fiona-1.10.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:065328fcc61caeca7c5d4b0b1b741213e422997ea66eaa04c2e207e1609eb0e7"},
+    {file = "fiona-1.10.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:34575acb68b41009b28237121c728015aebb2ab3969cf46e57d9b9e5510ece61"},
+    {file = "fiona-1.10.0-cp38-cp38-win_amd64.whl", hash = "sha256:bfc9b76345a58ddcf9aae8697eb444728ff7a2cde7d5925f3031ff25e9eaa339"},
+    {file = "fiona-1.10.0-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:f335beb927c5e9d9997a9cf665d6eee2e24191a02582f01786afa76119b71110"},
+    {file = "fiona-1.10.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:5f1db6fc3f9212fdc817628981731e0adcdce88b0afd30531986c732a75f6a98"},
+    {file = "fiona-1.10.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cc68efb479a04be9a8e9c381940493c22a47f6aec5bbec22d0bb57a9cb240296"},
+    {file = "fiona-1.10.0-cp39-cp39-win_amd64.whl", hash = "sha256:d99d2faa8cb3590dc0018a2832af39e1930b39cfff53017f3681d505bf813fee"},
+    {file = "fiona-1.10.0.tar.gz", hash = "sha256:3529fd46d269ff3f70aeb9316a93ae95cf2f87d7e148a8ff0d68532bf81ff7ae"},
 ]
 
 [package.dependencies]
@@ -840,13 +841,12 @@ certifi = "*"
 click = ">=8.0,<9.0"
 click-plugins = ">=1.0"
 cligj = ">=0.5"
-six = "*"
 
 [package.extras]
 all = ["fiona[calc,s3,test]"]
-calc = ["shapely"]
+calc = ["pyparsing", "shapely"]
 s3 = ["boto3 (>=1.3.1)"]
-test = ["fiona[s3]", "pytest (>=7)", "pytest-cov", "pytz"]
+test = ["aiohttp", "fiona[s3]", "fsspec", "pytest (>=7)", "pytest-cov", "pytz"]
 
 [[package]]
 name = "flake8"
@@ -895,13 +895,13 @@ shapely = ">=1.7"
 
 [[package]]
 name = "gunicorn"
-version = "22.0.0"
+version = "23.0.0"
 description = "WSGI HTTP Server for UNIX"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "gunicorn-22.0.0-py3-none-any.whl", hash = "sha256:350679f91b24062c86e386e198a15438d53a7a8207235a78ba1b53df4c4378d9"},
-    {file = "gunicorn-22.0.0.tar.gz", hash = "sha256:4a0b436239ff76fb33f11c07a16482c521a7e09c1ce3cc293c2330afe01bec63"},
+    {file = "gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d"},
+    {file = "gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"},
 ]
 
 [package.dependencies]
@@ -957,13 +957,13 @@ tomli = {version = "*", markers = "python_version > \"3.6\" and python_version <
 
 [[package]]
 name = "ipython"
-version = "8.26.0"
+version = "8.27.0"
 description = "IPython: Productive Interactive Computing"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "ipython-8.26.0-py3-none-any.whl", hash = "sha256:e6b347c27bdf9c32ee9d31ae85defc525755a1869f14057e900675b9e8d6e6ff"},
-    {file = "ipython-8.26.0.tar.gz", hash = "sha256:1cec0fbba8404af13facebe83d04436a7434c7400e59f47acf467c64abd0956c"},
+    {file = "ipython-8.27.0-py3-none-any.whl", hash = "sha256:f68b3cb8bde357a5d7adc9598d57e22a45dfbea19eb6b98286fa3b288c9cd55c"},
+    {file = "ipython-8.27.0.tar.gz", hash = "sha256:0b99a2dc9f15fd68692e898e5568725c6d49c527d36a9fb5960ffbdeaa82ff7e"},
 ]
 
 [package.dependencies]
@@ -1088,7 +1088,7 @@ django-crispy-forms = "*"
 type = "git"
 url = "https://github.com/dbca-wa/ledger_api_client.git"
 reference = "HEAD"
-resolved_reference = "a6832a2c52ea4fd0c99ca41f251c9664b9108628"
+resolved_reference = "efced24307b2b06136e4874d5dd7199e43d6d699"
 
 [[package]]
 name = "lxml"
@@ -1399,8 +1399,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.21.0", markers = "python_version >= \"3.10\" and python_version < \"3.11\""},
     {version = ">=1.23.2", markers = "python_version >= \"3.11\""},
+    {version = ">=1.21.0", markers = "python_version >= \"3.10\" and python_version < \"3.11\""},
 ]
 python-dateutil = ">=2.8.1"
 pytz = ">=2020.1"
@@ -1450,13 +1450,13 @@ ptyprocess = ">=0.5"
 
 [[package]]
 name = "phonenumbers"
-version = "8.13.43"
+version = "8.13.44"
 description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
 optional = false
 python-versions = "*"
 files = [
-    {file = "phonenumbers-8.13.43-py2.py3-none-any.whl", hash = "sha256:339e521403fe4dd9c664dbbeb2fe434f9ea5c81e54c0fdfadbaeb53b26a76c27"},
-    {file = "phonenumbers-8.13.43.tar.gz", hash = "sha256:35b904e4a79226eee027fbb467a9aa6f1ab9ffc3c09c91bf14b885c154936726"},
+    {file = "phonenumbers-8.13.44-py2.py3-none-any.whl", hash = "sha256:52cd02865dab1428ca9e89d442629b61d407c7dc687cfb80a3e8d068a584513c"},
+    {file = "phonenumbers-8.13.44.tar.gz", hash = "sha256:2175021e84ee4e41b43c890f2d0af51f18c6ca9ad525886d6d6e4ea882e46fac"},
 ]
 
 [[package]]
@@ -1761,8 +1761,8 @@ files = [
 astroid = ">=2.15.8,<=2.17.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = [
-    {version = ">=0.2", markers = "python_version < \"3.11\""},
     {version = ">=0.3.6", markers = "python_version >= \"3.11\""},
+    {version = ">=0.2", markers = "python_version < \"3.11\""},
 ]
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.8"
@@ -2408,4 +2408,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b5f7068c8415bd9129f2171c0f29496f52334ba4b7f814d057e6ef8cdfb73408"
+content-hash = "ecb1ceb8928b71aa40f48fbefa5051d6d2ecb325a4f30d51be2250cae7b5b0a0"
