@@ -165,7 +165,7 @@ export default {
                     organisation_contacts.$refs.organisation_contacts_datatable.vmDataTable.draw(
                         'page'
                     );
-                } catch (error) {
+                } catch {
                     console.error(
                         'Error refreshing organisation contacts datatable'
                     );

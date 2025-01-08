@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid';
 
 export default {
     name: 'CrownLandRentReviewDate',
@@ -51,15 +51,15 @@ export default {
     data: function () {
         return {
             temp_date: null,
-        }
+        };
     },
     computed: {
         reviewDatesComputed: {
             get() {
-                return this.reviewDates
+                return this.reviewDates;
             },
             set(value) {
-                this.$emit('updateReviewDates', value)
+                this.$emit('updateReviewDates', value);
             },
         },
     },
@@ -67,8 +67,8 @@ export default {
         deletable: function (item) {
             if (item.id === 0 || !item.readonly)
                 // If the date is a newly added one, or not readonly, it is deletable.
-                return true
-            return false
+                return true;
+            return false;
         },
         addAnotherDateClicked: function () {
             this.reviewDatesComputed.push({
@@ -76,23 +76,23 @@ export default {
                 key: uuid(),
                 review_date: null,
                 readonly: false,
-            })
+            });
         },
         removeARow: function (item, e) {
-            let vm = this
-            let $elem = $(e.target)
+            let vm = this;
+            let $elem = $(e.target);
 
             // Fade out a row
-            $elem.closest('.review-date').remove()
+            $elem.closest('.review-date').remove();
             if (item.id === 0) {
                 vm.reviewDatesComputed = vm.reviewDatesComputed.filter(
                     (i) => i.key !== item.key
-                )
+                );
             } else {
                 // When a row is the one already stored in the database, flag it to be deleted.
-                item.to_be_deleted = true
+                item.to_be_deleted = true;
             }
         },
     },
-}
+};
 </script>

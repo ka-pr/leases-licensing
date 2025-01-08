@@ -561,7 +561,7 @@
 
 <script>
 import VueAlert from '@vue-utils/alert.vue';
-import RichText from '@/components/forms/richtext.vue';
+import RichText from '@/components/forms/RichText.vue';
 import { v4 as uuid } from 'uuid';
 
 import { api_endpoints, constants, helpers, utils } from '@/utils/hooks';
@@ -930,7 +930,6 @@ export default {
                 this.approval.selected_document_types = [];
             }
             if (this.proposal.proposed_issuance_approval) {
-                // eslint-disable-next-line vue/no-mutating-props
                 this.proposal.proposed_issuance_approval.selected_document_types =
                     [];
             }

@@ -64,7 +64,7 @@ export default {
             try {
                 let obj = JSON.parse(resp.responseText);
                 error_str = obj.non_field_errors[0].replace(/[[\]"]/g, '');
-            } catch (e) {
+            } catch {
                 error_str = resp.responseText.replace(/[[\]"]/g, '');
             }
         } else if (resp.status === 404) {
@@ -197,14 +197,13 @@ export default {
     dtPopover: function (value, truncate_length = 30, trigger = 'hover') {
         var ellipsis = '...',
             truncated = _.truncate(value, {
-                // eslint-disable-line no-undef
                 length: truncate_length,
                 omission: ellipsis,
                 separator: ' ',
             }),
             result = '<span>' + truncated + '</span>',
             popTemplate = _.template(
-                '<a href="#" ' + // eslint-disable-line no-undef
+                '<a href="#" ' +
                     'role="button" ' +
                     'data-toggle="popover" ' +
                     'data-trigger="' +
@@ -216,7 +215,6 @@ export default {
                     '>more</a>'
             );
         if (_.endsWith(truncated, ellipsis)) {
-            // eslint-disable-line no-undef
             result += popTemplate({
                 text: value,
             });
@@ -258,7 +256,7 @@ export default {
                 }
             }
         }
-        await swal('Error', errorText, 'error'); // eslint-disable-line no-undef
+        await swal('Error', errorText, 'error');
     },
     post_and_redirect: function (url, postData) {
         /* http.post and ajax do not allow redirect from Django View (post method),
@@ -288,7 +286,7 @@ export default {
             document.querySelectorAll('[data-bs-toggle="popover"]')
         );
         popoverTriggerList.map(function (popoverTriggerEl) {
-            new bootstrap.Popover(popoverTriggerEl); // eslint-disable-line no-undef
+            new bootstrap.Popover(popoverTriggerEl);
         });
     },
     parseFetchError: async function (response) {
@@ -411,7 +409,7 @@ export default {
         }
     },
     formatDateForAPI: function (data, format = 'DD/MM/YYYY') {
-        return data ? moment(data).format(format) : ''; // eslint-disable-line no-undef
+        return data ? moment(data).format(format) : '';
     },
     calendarYearsIncluded: function (start_date, end_date) {
         const start = moment(start_date).year();

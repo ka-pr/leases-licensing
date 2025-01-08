@@ -640,14 +640,14 @@
 </template>
 
 <script>
-import { api_endpoints, constants, helpers } from '@/utils/hooks';
-import ApplicationsTable from '@/components/common/table_proposals';
+import { api_endpoints, constants, helpers } from '@/utils/hooks.js';
+import ApplicationsTable from '@/components/common/table_proposals.vue';
 import ApprovalsTable from '@/components/common/table_approvals.vue';
 import CompliancesTable from '@/components/common/table_compliances.vue';
 import TableOrganisationContacts from '@/components/common/table_organisation_contacts.vue';
 import CommsLogs from '@common-utils/comms_logs.vue';
 import AddContact from '@common-utils/add_contact.vue';
-import utils from '../utils';
+import utils from '../utils.js';
 import FormSection from '@/components/forms/section_toggle.vue';
 
 export default {

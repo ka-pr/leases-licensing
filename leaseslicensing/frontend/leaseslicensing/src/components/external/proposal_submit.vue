@@ -86,6 +86,7 @@ export default {
                     'en-AU'
                 );
             }
+            return '';
         },
     },
     methods: {

@@ -125,11 +125,11 @@
 
 <script>
 import FormSection from '@/components/forms/section_toggle.vue';
-import ApplicationsTable from '@/components/common/table_proposals';
-import ApplicationsReferredToMeTable from '@/components/common/table_proposals';
-import CompetitiveProcessesTable from '@/components/common/table_competitive_processes';
+import ApplicationsTable from '@/components/common/table_proposals.vue';
+import ApplicationsReferredToMeTable from '@/components/common/table_proposals.vue';
+import CompetitiveProcessesTable from '@/components/common/table_competitive_processes.vue';
 import MapComponent from '@/components/common/component_map.vue';
-import { api_endpoints } from '@/utils/hooks';
+import { api_endpoints } from '@/utils/hooks.js';
 
 export default {
     name: 'InternalDashboard',

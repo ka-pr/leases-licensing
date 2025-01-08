@@ -478,7 +478,7 @@ import {
 import Swal from 'sweetalert2';
 
 export default {
-    name: 'Workflow',
+    name: 'WorkflowComponent',
     components: {
         MoreReferrals,
         AddExternalReferral,

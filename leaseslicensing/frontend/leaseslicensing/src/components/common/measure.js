@@ -2,7 +2,7 @@ import { Fill, Stroke, Style, Text, RegularShape } from 'ol/style';
 import { getLength } from 'ol/sphere';
 
 let MeasureStyles = {
-    'defaultStyle': new Style({
+    defaultStyle: new Style({
         fill: new Fill({
             color: 'rgba(255, 255, 255, 0.2)',
         }),
@@ -20,10 +20,10 @@ let MeasureStyles = {
             points: 4,
             radius: 10,
             radius2: 0,
-            angle: Math.PI / 4
+            angle: Math.PI / 4,
         }),
     }),
-    'segmentStyle': new Style({
+    segmentStyle: new Style({
         text: new Text({
             font: '12px Calibri,sans-serif',
             fill: new Fill({
@@ -46,7 +46,7 @@ let MeasureStyles = {
             }),
         }),
     }),
-    'labelStyle': new Style({
+    labelStyle: new Style({
         text: new Text({
             font: '14px Calibri,sans-serif',
             fill: new Fill({

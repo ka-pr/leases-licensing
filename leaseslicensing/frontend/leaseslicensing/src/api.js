@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     account: '/api/users/request_user_account/',
     applicants_dict: '/api/applicants_dict',
     application_statuses_dict: '/api/application_statuses_dict',

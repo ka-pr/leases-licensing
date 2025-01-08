@@ -15,18 +15,18 @@ export default {
     props: {
         text: {
             type: String,
-            required: true
+            required: true,
         },
         isLoading: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     emits: ['click'],
     methods: {
         click() {
             this.$emit('click');
-        }
-    }
-}
+        },
+    },
+};
 </script>

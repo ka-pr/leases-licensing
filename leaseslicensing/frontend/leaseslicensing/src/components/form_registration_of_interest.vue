@@ -1243,7 +1243,7 @@
 
 <script>
 import FormSection from '@/components/forms/section_toggle.vue';
-import RichText from '@/components/forms/richtext.vue';
+import RichText from '@/components/forms/RichText.vue';
 import FileField from '@/components/forms/filefield_immediate.vue';
 import { api_endpoints, helpers } from '@/utils/hooks';
 

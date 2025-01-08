@@ -64,7 +64,7 @@
  * Bootstrap Style Modal Component for Vue
  * Depend on Bootstrap.css
  */
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid';
 
 export default {
     props: {
@@ -130,7 +130,7 @@ export default {
         return {
             duration: null,
             id: uuid(),
-        }
+        };
     },
     computed: {
         modalClass() {
@@ -140,59 +140,59 @@ export default {
                 'modal-sm': this.small,
                 'modal-full': this.full,
                 'modal-dialog-scrollable': this.scrollable,
-            }
+            };
         },
         show: function () {
-            return this.$parent.isModalOpen
+            return this.$parent.isModalOpen;
         },
     },
     watch: {
         show(value) {
             if (value) {
-                document.body.className += ' modal-open'
+                document.body.className += ' modal-open';
             } else {
                 window.setTimeout(() => {
                     document.body.className = document.body.className.replace(
                         /\s?modal-open/,
                         ''
-                    )
-                }, this.duration || 0)
+                    );
+                }, this.duration || 0);
             }
         },
     },
     created: function () {
         if (this.show) {
-            document.body.className += ' modal-open'
+            document.body.className += ' modal-open';
         }
-        this.$emit('created')
+        this.$emit('created');
     },
     mounted: function () {
-        this.$emit('mounted')
+        this.$emit('mounted');
     },
     beforeUnmount() {
         document.body.className = document.body.className.replace(
             /\s?modal-open/,
             ''
-        )
+        );
     },
     methods: {
         ok() {
-            this.$emit('ok')
+            this.$emit('ok');
             if (this.closeWhenOK) {
-                this.show = false
+                this.show = false;
             }
         },
         cancel() {
-            this.$emit('cancel')
-            this.$parent.close()
+            this.$emit('cancel');
+            this.$parent.close();
         },
         clickMask() {
             if (!this.force) {
-                this.cancel()
+                this.cancel();
             }
         },
     },
-}
+};
 </script>
 
 <style scoped>

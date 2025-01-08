@@ -444,14 +444,14 @@
 </template>
 
 <script>
-import { api_endpoints, helpers, constants, utils } from '@/utils/hooks';
+import { api_endpoints, helpers, constants, utils } from '@/utils/hooks.js';
 import { v4 as uuid } from 'uuid';
 import CommsLogs from '@common-utils/comms_logs.vue';
 import Workflow from '@common-utils/workflow_competitive_process.vue';
 import FormSection from '@/components/forms/section_toggle.vue';
-import TableParties from '@common-utils/table_parties';
+import TableParties from '@common-utils/table_parties.vue';
 import MapComponent from '@/components/common/component_map.vue';
-import RichText from '@/components/forms/richtext.vue';
+import RichText from '@/components/forms/RichText.vue';
 import FileField from '@/components/forms/filefield_immediate.vue';
 import TableRelatedItems from '@/components/common/table_related_items.vue';
 import GISDataDetails from '@/components/common/gis_data_details.vue';

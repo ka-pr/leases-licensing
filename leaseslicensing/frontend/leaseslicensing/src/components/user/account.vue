@@ -341,7 +341,7 @@ import BootstrapLoadingButton from '../../utils/vue/BootstrapLoadingButton.vue';
 import { api_endpoints, constants, helpers, utils } from '@/utils/hooks';
 
 export default {
-    name: 'Account',
+    name: 'AccountComponent',
     components: {
         BootstrapLoadingButton,
         OrganisationSearch,

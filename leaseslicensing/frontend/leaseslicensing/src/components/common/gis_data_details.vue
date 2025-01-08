@@ -2,7 +2,7 @@
     <div
         v-for="(data, idx) in selectedData"
         :key="newKey(idx)"
-        :set="(selected_data_item = selected_data(idx))"
+        :set="selected_data_item = selected_data(idx)"
     >
         <form v-if="data" class="form-horizontal mb-2">
             <div class="mb-3 row">
@@ -201,6 +201,7 @@ export default {
                 }
             }
             evalString += '`';
+            // TODO: Refactor to not use eval. Strongly discouraged for security reasons
             // Evaluate the template string
             const _placeholder = eval(evalString);
             // Return the evaluated template string

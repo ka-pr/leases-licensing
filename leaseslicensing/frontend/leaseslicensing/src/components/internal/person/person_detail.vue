@@ -107,10 +107,10 @@
 
 <script>
 import FormSection from '@/components/forms/section_toggle.vue';
-import ApplicationsTable from '@/components/common/table_proposals';
-import AppprovalsTable from '@/components/common/table_approvals';
-import CompliancesTable from '@/components/common/table_compliances';
-import { api_endpoints, helpers, constants } from '@/utils/hooks';
+import ApplicationsTable from '@/components/common/table_proposals.vue';
+import AppprovalsTable from '@/components/common/table_approvals.vue';
+import CompliancesTable from '@/components/common/table_compliances.vue';
+import { api_endpoints, helpers, constants } from '@/utils/hooks.js';
 import CommsLogs from '@common-utils/comms_logs.vue';
 import EmailUser from '@/components/internal/person/emailuser.vue';
 

@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { api_endpoints, constants, utils } from '@/utils/hooks.js'
+import { api_endpoints, constants, utils } from '@/utils/hooks.js';
 
 export default {
     name: 'PaymentSuccess',
@@ -100,7 +100,7 @@ export default {
         return {
             invoice: null,
             supportEmail: constants.SUPPORT_EMAIL,
-        }
+        };
     },
     computed: {
         tryAgain: function () {
@@ -108,16 +108,16 @@ export default {
                 api_endpoints.invoices +
                 this.$route.params.invoice_id +
                 '/pay_invoice/'
-            )
+            );
         },
     },
     created: async function () {
         this.invoice = await utils.fetchUrl(
             api_endpoints.invoices + this.$route.params.invoice_id + '/'
-        )
+        );
     },
     mounted: function () {},
-}
+};
 </script>
 
 <style scoped></style>

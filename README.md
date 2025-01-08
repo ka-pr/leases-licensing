@@ -41,8 +41,7 @@ Then, run `npm run build` to build the software and move the output files to `le
 
 The build files are made available to the Django app by running `./collectstatic.sh`.
 
-If the `DEV_APP_BUILD_URL` is not set, the Django app will serve static Javascript from `staticfiles_ll/leaseslicensing_vue/js.app.js`,
-else the Vue app will be served from the url provided.  Start the dev server with `npm run serve`.
+Start the dev server with `npm run dev`.
 
 # Environment variables
 
@@ -76,6 +75,5 @@ required environment variables at run time. Example content:
     LEDGER_API_URL="http://localhost:8000"
     LEDGER_API_KEY="API_KEY"
     # Below is required to run Vue Js front end with hot reload
-    DEV_APP_BUILD_URL="http://localhost:8080/static/leaseslicensing_vue/js/app.js"
     # Below prints emails to screen instead of sending via mail server
     CONSOLE_EMAIL_BACKEND=True

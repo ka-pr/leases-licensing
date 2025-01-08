@@ -65,9 +65,15 @@ export default {
 </script>
 
 <style lang="css">
-div.dataTables_processing div {
+div.dt-processing div {
     display: none;
 }
+
+table.dataTable {
+    margin-top: 8px;
+    margin-bottom: 8px !important;
+}
+
 td > a {
     border: none;
     border-radius: 2px;

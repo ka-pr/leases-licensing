@@ -24,6 +24,7 @@ def leaseslicensing_url(request):
         "build_tag": settings.BUILD_TAG,
         "LEDGER_UI_URL": settings.LEDGER_UI_URL,
         "PAYMENT_SYSTEM_PREFIX": settings.PAYMENT_SYSTEM_PREFIX,
-        "app_build_url": settings.DEV_APP_BUILD_URL,
+        "vue3_entry_script": settings.VUE3_ENTRY_SCRIPT,
+        "use_vite_dev_server": settings.USE_VITE_DEV_SERVER,
         "ledger_totals": ledger_totals,
     }

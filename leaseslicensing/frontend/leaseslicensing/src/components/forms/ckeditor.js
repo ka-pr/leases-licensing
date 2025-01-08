@@ -36,82 +36,78 @@ class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
-	Alignment,
-	Autoformat,
-	AutoLink,
-	BlockQuote,
-	Bold,
-	CKBox,
-	CloudServices,
-	Essentials,
-	Heading,
-	Image,
-	ImageCaption,
-	ImageStyle,
-	ImageToolbar,
-	ImageUpload,
-	Indent,
-	Italic,
-	Link,
-	List,
-	MediaEmbed,
-	Paragraph,
-	PasteFromOffice,
-	PictureEditing,
-	RemoveFormat,
-	SourceEditing,
-	Table,
-	TableToolbar,
-	TextTransformation,
-	Underline
+    Alignment,
+    Autoformat,
+    AutoLink,
+    BlockQuote,
+    Bold,
+    CKBox,
+    CloudServices,
+    Essentials,
+    Heading,
+    Image,
+    ImageCaption,
+    ImageStyle,
+    ImageToolbar,
+    ImageUpload,
+    Indent,
+    Italic,
+    Link,
+    List,
+    MediaEmbed,
+    Paragraph,
+    PasteFromOffice,
+    PictureEditing,
+    RemoveFormat,
+    SourceEditing,
+    Table,
+    TableToolbar,
+    TextTransformation,
+    Underline,
 ];
 
 // Editor configuration.
 Editor.defaultConfig = {
-	toolbar: {
-		items: [
-			'heading',
-			'|',
-			'bold',
-			'italic',
-			'underline',
-			'bulletedList',
-			'numberedList',
-			'|',
-			'outdent',
-			'indent',
-			'|',
-			'imageUpload',
-			'blockQuote',
-			'insertTable',
-			'mediaEmbed',
-			'undo',
-			'redo',
-			'|',
-			'alignment',
-			'link',
-			'|',
-			'removeFormat',
-			'sourceEditing'
-		]
-	},
-	language: 'en',
-	image: {
-		toolbar: [
-			'imageTextAlternative',
-			'toggleImageCaption',
-			'imageStyle:inline',
-			'imageStyle:block',
-			'imageStyle:side'
-		]
-	},
-	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
-	}
+    toolbar: {
+        items: [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'underline',
+            'bulletedList',
+            'numberedList',
+            '|',
+            'outdent',
+            'indent',
+            '|',
+            'imageUpload',
+            'blockQuote',
+            'insertTable',
+            'mediaEmbed',
+            'undo',
+            'redo',
+            '|',
+            'alignment',
+            'link',
+            '|',
+            'removeFormat',
+            'sourceEditing',
+        ],
+    },
+    language: 'en',
+    image: {
+        toolbar: [
+            'imageTextAlternative',
+            'toggleImageCaption',
+            'imageStyle:inline',
+            'imageStyle:block',
+            'imageStyle:side',
+        ],
+    },
+    table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+    },
 };
 
 export default Editor;

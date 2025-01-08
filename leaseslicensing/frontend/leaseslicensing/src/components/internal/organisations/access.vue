@@ -227,7 +227,6 @@
     </div>
 </template>
 <script>
-import $ from 'jquery';
 import CommsLogs from '@common-utils/comms_logs.vue';
 import Swal from 'sweetalert2';
 import { api_endpoints, constants, helpers } from '@/utils/hooks';

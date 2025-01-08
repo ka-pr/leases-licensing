@@ -1,14 +1,25 @@
 <template>
-    <div v-show="show" v-bind:class="{
-        'alert': true,
-        'alert-success': (type == 'success'),
-        'alert-warning': (type == 'warning'),
-        'alert-info': (type == 'info'),
-        'alert-danger': (type == 'danger'),
-        'top': (placement === 'top'),
-        'top-right': (placement === 'top-right')
-    }" transition="fade" v-bind:style="{ width: width }" role="alert">
-        <button v-show="dismissable" type="button" class="close" @click="show = false">
+    <div
+        v-show="show"
+        v-bind:class="{
+            alert: true,
+            'alert-success': type == 'success',
+            'alert-warning': type == 'warning',
+            'alert-info': type == 'info',
+            'alert-danger': type == 'danger',
+            top: placement === 'top',
+            'top-right': placement === 'top-right',
+        }"
+        transition="fade"
+        v-bind:style="{ width: width }"
+        role="alert"
+    >
+        <button
+            v-show="dismissable"
+            type="button"
+            class="close"
+            @click="show = false"
+        >
             <span>&times;</span>
         </button>
         <slot></slot>
@@ -17,13 +28,14 @@
 
 <script>
 export default {
+    name: 'AlertComponent',
     props: {
         type: {
-            type: String
+            type: String,
         },
         dismissable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         show: {
             type: Boolean,
@@ -31,29 +43,31 @@ export default {
         },
         duration: {
             type: Number,
-            default: 0
+            default: 0,
         },
         width: {
-            type: String
+            type: String,
         },
         placement: {
-            type: String
-        }
+            type: String,
+        },
     },
     watch: {
         show(val) {
-            if (this._timeout) clearTimeout(this._timeout)
+            if (this._timeout) clearTimeout(this._timeout);
             if (val && Boolean(this.duration)) {
-                this._timeout = setTimeout(() => { this.show = false }, this.duration)
+                this._timeout = setTimeout(() => {
+                    this.show = false;
+                }, this.duration);
             }
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 <style scoped>
 .fade-transition {
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .fade-enter,

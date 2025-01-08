@@ -451,7 +451,7 @@ const _helper = {
             map_component = vm.$refs.component_map;
         }
         // The geoserver url
-        // eslint-disable-next-line no-undef
+
         let owsUrl = `${env['gis_server_url']}/geoserver/ows/?`;
         // Create a params dict for the WFS request to the land-water layer
         let paramsDict = map_component.queryParamsDict('landwater');

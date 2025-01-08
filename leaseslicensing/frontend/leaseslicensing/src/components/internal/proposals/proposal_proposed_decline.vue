@@ -97,7 +97,7 @@
 <script>
 import modal from '@vue-utils/bootstrap-modal.vue';
 import VueAlert from '@vue-utils/alert.vue';
-import RichText from '@/components/forms/richtext.vue';
+import RichText from '@/components/forms/RichText.vue';
 import FileField from '@/components/forms/filefield_immediate.vue';
 import { helpers, api_endpoints, utils } from '@/utils/hooks.js';
 import { v4 as uuid } from 'uuid';
@@ -218,7 +218,6 @@ export default {
             for (let detailText of data[0]) {
                 vm.detailsTexts[detailText.target] = detailText.body;
             }
-            vm.uuid = uuid();
         });
     },
     methods: {

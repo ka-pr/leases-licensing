@@ -1,10 +1,23 @@
+import 'vite/modulepreload-polyfill';
+
 import { createApp } from 'vue';
 import router from './router';
-import App from './App';
+import App from './App.vue';
 import helpers from '@/utils/helpers';
 import { extendMoment } from 'moment-range';
-import CKEditor from '@ckeditor/ckeditor5-vue';
 import govVue3Components from '@dbca/gov-vue3-components';
+
+import _ from 'lodash';
+window._ = _;
+import $ from 'jquery';
+import select2 from 'select2';
+window.$ = $;
+import moment from 'moment';
+window.moment = moment;
+import swal from 'sweetalert2';
+window.swal = swal;
+select2();
+
 import 'datatables.net-bs5';
 import 'datatables.net-buttons-bs5';
 import 'datatables.net-responsive-bs5';
@@ -18,14 +31,15 @@ import 'jquery-validation';
 
 import 'sweetalert2/dist/sweetalert2.css';
 import '@dbca/gov-vue3-components/dist/assets/library-DJ5wR63R.css';
-import '@/../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import 'select2/dist/css/select2.min.css';
 import 'select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css';
+
+import '@/../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import '@/../node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import '@/../node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css';
 import '@/../node_modules/vue-multiselect/dist/vue-multiselect.css';
 
-extendMoment(moment); // eslint-disable-line no-undef
+extendMoment(moment);
 
 // Add CSRF Token to every request
 const customHeaders = new Headers({
@@ -57,7 +71,7 @@ app.config.globalProperties.$filters = {
         if (typeof val !== 'object') {
             try {
                 val = JSON.parse(val);
-            } catch (err) {
+            } catch {
                 console.warn('value is not JSON');
                 return val;
             }
@@ -66,5 +80,5 @@ app.config.globalProperties.$filters = {
     },
 };
 
-app.use(router).use(govVue3Components).use(CKEditor);
+app.use(router).use(govVue3Components);
 router.isReady().then(() => app.mount('#app'));

@@ -1339,10 +1339,6 @@ import FormSection from '@/components/forms/section_toggle.vue';
 import AssessmentComments from '@/components/forms/collapsible_component.vue';
 import TableRelatedItems from '@/components/common/table_related_items.vue';
 import { declineProposal } from '@/components/common/workflow_functions.js';
-require('select2/dist/css/select2.min.css');
-// CSS definitions to make sure workflow swal2 popovers are placed above any open bootstrap popover
-// See: `swal.fire` `customClass` property
-require('../../../../../../static/leaseslicensing/css/workflow.css');
 
 export default {
     name: 'InternalProposal',

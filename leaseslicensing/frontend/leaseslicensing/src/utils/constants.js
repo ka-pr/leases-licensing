@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     // Unfortunately, most of the IDs here are actually keys not ids.
     // No time to refactor now however it can cause confusion in the components when doing comparisons.
     APPLICATION_TYPES: {
@@ -190,7 +190,7 @@ module.exports = {
     SUPPORT_EMAIL: '?.?@dbca.wa.gov.au',
 
     ERRORS: {
-        NETWORK_ERROR: `NETWORK ERROR: Please check your internet connection and try again. If the problem persists contact us at: ${this.SUPPORT_EMAIL}`,
+        NETWORK_ERROR: `NETWORK ERROR: Please check your internet connection and try again. If the problem persists contact us at: ?.?@dbca.wa.gov.au`,
         API_ERROR:
             'API ERROR: An error has occured accessing the Leases and Licenses System API. Please try again \
             in an hour and if the problem persists contact us at: ?.?@dbca.wa.gov.au',

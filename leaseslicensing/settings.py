@@ -5,7 +5,6 @@ import sys
 import confy
 import tomli
 from confy import env
-from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 confy.read_environment_file(BASE_DIR + "/.env")
@@ -70,6 +69,7 @@ INSTALLED_APPS += [
     "rest_framework_gis",
     "drf_standardized_errors",
     "ckeditor",
+    "django_vite",
 ]
 
 # Not using django cron
@@ -164,13 +164,13 @@ else:
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_ll")
 STATICFILES_DIRS.extend(
     [
+        os.path.join(
+            os.path.join(BASE_DIR, "leaseslicensing", "static", "leaseslicensing_vue")
+        ),
         os.path.join(os.path.join(BASE_DIR, "leaseslicensing", "static")),
     ]
 )
-DEV_STATIC = env("DEV_STATIC", False)
-DEV_STATIC_URL = env("DEV_STATIC_URL")
-if DEV_STATIC and not DEV_STATIC_URL:
-    raise ImproperlyConfigured("If running in DEV_STATIC, DEV_STATIC_URL has to be set")
+
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 # Department details
@@ -399,9 +399,6 @@ else:
     }
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
-DEV_APP_BUILD_URL = env(
-    "DEV_APP_BUILD_URL"
-)  # URL of the Dev app.js served by webpack & express
 
 PROPOSAL_TYPE_NEW = "new"
 PROPOSAL_TYPE_RENEWAL = "renewal"
@@ -659,3 +656,25 @@ API_EXCEPTION_MESSAGE = (
     "An error occurred while processing your request, "
     f"please try again and if the problem persists contact {SUPPORT_EMAIL}"
 )
+
+# Make sure this returns true when in local development
+# so you can use the vite dev server with hot module reloading
+USE_VITE_DEV_SERVER = RUNNING_DEVSERVER and EMAIL_INSTANCE == "DEV" and DEBUG is True
+
+STATIC_URL_PREFIX = (
+    "/static/leaseslicensing_vue/" if USE_VITE_DEV_SERVER else "leaseslicensing_vue/"
+)
+
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": USE_VITE_DEV_SERVER,
+        "dev_server_host": "localhost",  # Default host for vite (can change if needed)
+        "dev_server_port": 5173,  # Default port for vite (can change if needed)
+        "static_url_prefix": STATIC_URL_PREFIX,
+    }
+}
+
+VUE3_ENTRY_SCRIPT = env(
+    "VUE3_ENTRY_SCRIPT",
+    default="src/main.js",  # This path will be auto prefixed with the       static_url_prefix from DJANGO_VITE above
+)  # Path of the vue3 entry point script served by vite

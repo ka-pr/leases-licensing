@@ -48,10 +48,10 @@
 
 <script>
 import FormSection from '@/components/forms/section_toggle.vue';
-import ApplicationsTable from '@/components/common/table_proposals';
-import ApplicationsReferredToMeTable from '@/components/common/table_proposals';
-import ApprovalsTable from '@/components/common/table_approvals';
-import CompliancesTable from '@/components/common/table_compliances';
+import ApplicationsTable from '@/components/common/table_proposals.vue';
+import ApplicationsReferredToMeTable from '@/components/common/table_proposals.vue';
+import ApprovalsTable from '@/components/common/table_approvals.vue';
+import CompliancesTable from '@/components/common/table_compliances.vue';
 
 export default {
     name: 'ExternalDashboard',

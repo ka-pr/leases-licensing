@@ -82,23 +82,23 @@
 </template>
 
 <script>
-import { api_endpoints, utils } from '@/utils/hooks.js'
+import { api_endpoints, utils } from '@/utils/hooks.js';
 
 export default {
     name: 'PaymentSuccess',
     data: function () {
         return {
             invoice: null,
-        }
+        };
     },
     created: async function () {
         this.invoice = await utils.fetchUrl(
             api_endpoints.invoices + this.$route.params.invoice_id + '/'
-        )
+        );
     },
     mounted: function () {},
     methods: {},
-}
+};
 </script>
 
 <style scoped></style>

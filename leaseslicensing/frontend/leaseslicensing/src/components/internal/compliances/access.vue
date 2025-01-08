@@ -1140,7 +1140,7 @@ export default {
                     try {
                         error = JSON.parse(error.message);
                         errorText = helpers.formatErrorV2(error);
-                    } catch (e) {
+                    } catch {
                         errorText = error.message;
                     }
                     swal.fire({

@@ -18,7 +18,6 @@ export async function remindReferral(api_endpoint, _id, user) {
             }
         })
         .then(() => {
-            // eslint-disable-next-line no-undef
             swal.fire({
                 title: 'Referral Reminder',
                 text: 'A reminder has been sent to ' + user,
@@ -30,7 +29,6 @@ export async function remindReferral(api_endpoint, _id, user) {
             });
         })
         .catch((error) => {
-            // eslint-disable-next-line no-undef
             swal.fire({
                 title: 'Proposal Error',
                 text: error['message'],
@@ -49,7 +47,7 @@ export async function remindReferral(api_endpoint, _id, user) {
  */
 export async function recallReferral(api_endpoint, _id, user) {
     let vm = this;
-    // eslint-disable-next-line no-undef
+
     const _loading = swal.fire({
         icon: 'info',
         title: 'Loading...',
@@ -57,7 +55,6 @@ export async function recallReferral(api_endpoint, _id, user) {
         allowOutsideClick: false,
         allowEscapeKey: false,
         didOpen: async () => {
-            // eslint-disable-next-line no-undef
             swal.showLoading();
         },
         customClass: {
@@ -126,7 +123,7 @@ export async function resendReferral(api_endpoint, _id, user) {
                 // Reload the Show Referrals popover table if exists
                 vm.table.ajax.reload();
             }
-            // eslint-disable-next-line no-undef
+
             swal.fire({
                 title: 'Referral Resent',
                 text: 'The referral has been resent to ' + user,
@@ -137,7 +134,6 @@ export async function resendReferral(api_endpoint, _id, user) {
             });
         })
         .catch((error) => {
-            // eslint-disable-next-line no-undef
             swal.fire({
                 title: 'Proposal Error',
                 text: error['message'],

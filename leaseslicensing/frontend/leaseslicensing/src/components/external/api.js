@@ -5,4 +5,4 @@ module.exports = {
     organisations: '/api/organisations.json/',
     organisation_contacts: '/api/organisation_contacts.json',
     my_organisations: '/api/my_organisations',
-}
+};

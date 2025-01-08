@@ -1,5 +1,6 @@
 {% extends "webtemplate_dbca/base_b5_auth_session.html" %}
 {% load static %}
+{% load django_vite %}
 
 {% load users %}
 {% load utils %}
@@ -25,20 +26,30 @@
         {% endblock %}
         {% block extra_css %}
             <link rel="stylesheet" href="{% static 'leaseslicensing/css/base.css' %}?v={{build_tag}}">
-            <link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/app.css' %}?v={{build_tag}}">
-            <link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/chunk-vendors.css' %}?v={{build_tag}}">
+            {% if not use_vite_dev_server %}
+            <link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/main.css' %}?v={{ build_tag }}" />
+            {% endif %}
         {% endblock %}
+
+        {% block extra_js %}
+            {% if use_vite_dev_server %}
+                {% vite_hmr_client %}
+            {% endif %}
+        {% endblock %}
+
         {% block custom_js %}
             <script language="javascript">
-                    var env = {
-                        "kmi_server_url": "{{ KMI_SERVER_URL }}",
-                        "gis_server_url": "{{ GIS_SERVER_URL }}"
-                    }
+            var env = {
+                "kmi_server_url": "{{ KMI_SERVER_URL }}",
+                "gis_server_url": "{{ GIS_SERVER_URL }}"
+            }
 
             </script>
-            <script type="text/javascript" src="{% static 'leaseslicensing_vue/js/chunk-vendors.js' %}?v={{build_tag}}"></script>
-            <script type="text/javascript" src="{% static 'leaseslicensing_vue/js/app.js' %}?v={{build_tag}}"></script>
-
+            {% if use_vite_dev_server %}
+            <script type="module" src="{% vite_asset_url vue3_entry_script %}?v={{ build_tag }}"></script>
+            {% else %}
+            <script type="module" src="{% static 'leaseslicensing_vue/js/main.js' %}?={{ build_tag }}"></script>
+            {% endif %}
         {% endblock %}
 
         {% block menu_items_left_brand %}
