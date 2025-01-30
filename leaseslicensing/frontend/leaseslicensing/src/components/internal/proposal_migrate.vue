@@ -719,7 +719,7 @@ export default {
                                 swal.fire({
                                     title: 'No Results Found',
                                     html: `<p>No results found for the search term '${params.term}'.</p><p> Would you like to add a new ${vm.select2applicantType} to the ledger database?</p>`,
-                                    icon: 'warning',
+                                    icon: 'question',
                                     confirmButtonText: 'Yes please',
                                     cancelButtonText: 'Search Again',
                                     showCancelButton: true,

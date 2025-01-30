@@ -124,13 +124,13 @@
                                         id="registration-of-interest-details-approve"
                                         ref="registration_of_interest_details"
                                         :key="uuid"
-                                        v-model="proposedDecisionDetails"
                                         :proposal-data="proposedDecisionDetails"
-                                        placeholder_text="Add some details here"
-                                        :can_view_richtext_src="true"
+                                        placeholder-text="Add some details here"
                                         :readonly="readonly"
                                         @text-changed="
-                                            updateProposedDecisionDetails
+                                            updateProposedDecisionDetails(
+                                                $event
+                                            )
                                         "
                                     />
                                 </div>
@@ -399,15 +399,15 @@
                                         id="lease-licence-details-approve"
                                         ref="lease_licence_details"
                                         :key="uuid"
-                                        v-model="approval.details"
                                         :proposal-data="proposedDecisionDetails"
-                                        :can_view_richtext_src="true"
-                                        :placeholder_text="
+                                        :placeholder-text="
                                             selectedApprovalTypeDetailsPlaceholder
                                         "
                                         :readonly="readonly"
                                         @text-changed="
-                                            updateProposedDecisionDetails
+                                            updateProposedDecisionDetails(
+                                                $event
+                                            )
                                         "
                                     />
                                     <div
@@ -417,7 +417,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div v-if="selectedApprovalTypeId" class="row mb-3">
                                 <label
                                     for="proposed_approval_documents"
                                     class="col-sm-3 col-form-label text-nowrap"
@@ -425,15 +425,16 @@
                                 >
                                 <div class="col-sm-9">
                                     <FileField
-                                        id="proposed_approval_documents"
-                                        ref="proposed_approval_documents"
-                                        name="proposed_approval_documents"
+                                        id="proposal_approve_decline_documents"
+                                        ref="proposal_approve_decline_documents"
+                                        name="proposal_approve_decline_documents"
                                         :is-repeatable="true"
-                                        :document-action-url="
-                                            proposedApprovalDocumentsUrl
-                                        "
+                                        :document-action-url="fileUrl"
                                         :replace_button_by_text="true"
-                                        :readonly="readonly"
+                                        :readonly="
+                                            !selectedApprovalTypeId || readonly
+                                        "
+                                        :approval_type="selectedApprovalTypeId"
                                     />
                                 </div>
                             </div>
@@ -473,7 +474,8 @@
                             v-if="
                                 (leaseLicence &&
                                     !withApprover &&
-                                    !proposalIsApproved) ||
+                                    !proposalIsApproved &&
+                                    !proposalDeclined) ||
                                 alwaysShowDocuments
                             "
                             class="form-group"
@@ -537,16 +539,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div v-if="can_preview">
-            <ul class="list-group mx-2">
-                <li class="list-group-item">
-                    <i class="fa-solid fa-envelope text-primary"></i> Click
-                    <a href="#" @click.prevent="preview">here</a> to preview the
-                    approval letter.
-                </li>
-            </ul>
-            <p v-if="can_preview"></p>
         </div>
         <div v-if="issuingApproval" class="container">
             <div class="row">
@@ -668,16 +660,14 @@ export default {
             }
             return false;
         },
-        leaseLicenceApprovalDocumentsUrl: function () {
+        fileUrl: function () {
+            let endPoint = '/process_lease_licence_approval_document/';
+            if (this.proposal.proposed_decline_status) {
+                endPoint = '/process_proposed_decline_document/';
+            }
             return helpers.add_endpoint_join(
                 api_endpoints.proposal,
-                this.proposal.id + '/process_lease_licence_approval_document/'
-            );
-        },
-        proposedApprovalDocumentsUrl: function () {
-            return helpers.add_endpoint_join(
-                api_endpoints.proposal,
-                this.proposal.id + '/process_proposed_approval_document/'
+                this.proposal.id + endPoint
             );
         },
         selectedApprovalDocumentTypes: function () {
@@ -752,16 +742,6 @@ export default {
                 constants.PROPOSAL_STATUS.WITH_APPROVER.ID
                 ? true
                 : false;
-        },
-        can_preview: function () {
-            // Currently, all documents are uploaded by the assessor, thus no preview is required
-            return false;
-            // return this.processing_status == 'With Approver' ? true : false;
-        },
-        preview_licence_url: function () {
-            return this.proposal_id
-                ? `/preview/licence-pdf/${this.proposal_id}`
-                : '';
         },
         registrationOfInterest: function () {
             if (
@@ -915,6 +895,8 @@ export default {
             });
         },
         updateProposedDecisionDetails(detailsText) {
+            console.log('detailsText', detailsText);
+            this.approval.details = detailsText;
             if (detailsText) {
                 $('.details-invalid-feedback').hide();
             }
@@ -956,43 +938,6 @@ export default {
                 this.issuingApproval = false;
                 this.errorString = await helpers.parseFetchError(response);
             }
-        },
-        preview: function () {
-            let vm = this;
-            let formData = new FormData(vm.form);
-            // convert formData to json
-            let jsonObject = {};
-            for (const [key, value] of formData.entries()) {
-                jsonObject[key] = value;
-            }
-            vm.post_and_redirect(vm.preview_licence_url, {
-                csrfmiddlewaretoken: vm.csrf_token,
-                formData: JSON.stringify(jsonObject),
-            });
-        },
-        post_and_redirect: function (url, postData) {
-            /* http.post and ajax do not allow redirect from Django View (post method),
-               this function allows redirect by mimicking a form submit.
-               usage:  vm.post_and_redirect(vm.application_fee_url, {'csrfmiddlewaretoken' : vm.csrf_token});
-            */
-            var postFormStr =
-                "<form method='POST' target='_blank' name='Preview Licence' action='" +
-                url +
-                "'>";
-            for (let key in postData) {
-                if (Object.hasOwn(postData, key)) {
-                    postFormStr +=
-                        "<input type='hidden' name='" +
-                        key +
-                        "' value='" +
-                        postData[key] +
-                        "'>";
-                }
-            }
-            postFormStr += '</form>';
-            let formElement = $(postFormStr);
-            $('body').append(formElement);
-            $(formElement).submit();
         },
         validateForm: function () {
             let vm = this;
@@ -1039,12 +984,8 @@ export default {
 
             this.$nextTick(async () => {
                 if (this.registrationOfInterest) {
-                    this.approval.details =
-                        this.$refs.registration_of_interest_details.detailsText;
                     this.approval.decision = this.selectedDecision;
                 } else if (this.leaseLicence) {
-                    this.approval.details =
-                        this.$refs.lease_licence_details.detailsText;
                     this.approval.approval_type = this.selectedApprovalTypeId;
                     this.approval.selected_document_types =
                         this.$refs.proposed_issuance_documents.selectedDocumentTypes;

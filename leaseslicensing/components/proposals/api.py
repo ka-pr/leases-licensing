@@ -268,7 +268,9 @@ class ProposalFilterBackend(LedgerDatatablesFilterBackend):
             ledger_lookup_fields=ledger_lookup_fields,
         )
 
+        setattr(view, "_datatables_filtered_count", queryset.count())
         setattr(view, "_datatables_total_count", total_count)
+
         return queryset
 
 
@@ -436,7 +438,7 @@ class ProposalViewSet(UserActionLoggingViewset):
                 return qs.distinct()
             return qs
 
-        logger.warn(
+        logger.warning(
             "User is neither customer nor internal user: {} <{}>".format(
                 user.get_full_name(), user.email
             )

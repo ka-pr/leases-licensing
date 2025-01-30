@@ -267,9 +267,9 @@ export default {
                     'GST Free',
                     'Date Due',
                     'Date Issued',
-                    'Action',
                     'Oracle Invoice Number',
                     'Receivable Activity Code',
+                    'Action',
                 ];
             }
             return [
@@ -370,6 +370,7 @@ export default {
                     if ('void' == full.status) {
                         return `<span class="badge bg-secondary">${full.status_display}</span>`;
                     }
+                    return `<span class="badge bg-secondary">${full.status_display}</span>`;
                 },
             };
         },
@@ -455,6 +456,10 @@ export default {
                 visible: true,
                 render: function (row, type, full) {
                     let links = '';
+                    if (full.status == 'discarded') {
+                        return links;
+                    }
+
                     if (full.transaction_count > 0) {
                         links += `<a href="#${full.id}" data-view-transactions="${full.id}" data-invoice-lodgement-number="${full.lodgement_number}" data-invoice-amount="${full.amount}">View Transactions</a><br />`;
                     }
@@ -549,9 +554,9 @@ export default {
                     this.incGSTColumn,
                     this.dateDueColumn,
                     this.dateIssuedColumn,
-                    this.actionColumn,
                     this.oracleInvoiceNumberColumn,
                     this.oracleCodeColumn,
+                    this.actionColumn,
                 ];
             }
             return columns;
@@ -566,7 +571,7 @@ export default {
                         text: '<i class="fa-solid fa-download"></i> Excel',
                         className: 'btn btn-primary rounded me-2',
                         exportOptions: {
-                            columns: ':visible',
+                            columns: ':not(.no-export)',
                         },
                     },
                     {
@@ -574,7 +579,7 @@ export default {
                         text: '<i class="fa-solid fa-download"></i> CSV',
                         className: 'btn btn-primary rounded',
                         exportOptions: {
-                            columns: ':visible',
+                            columns: ':not(.no-export)',
                         },
                     },
                 ];
@@ -583,6 +588,14 @@ export default {
             return {
                 searching: true,
                 autoWidth: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                        className: 'no-export',
+                    },
+                ],
                 language: {
                     processing: constants.DATATABLE_PROCESSING_HTML,
                 },

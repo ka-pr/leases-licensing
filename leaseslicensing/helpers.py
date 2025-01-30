@@ -29,7 +29,7 @@ def user_ids_in_group(group_name):
         system_group = SystemGroup.objects.get(name=group_name)
         return system_group.get_system_group_member_ids()
     except SystemGroup.DoesNotExist:
-        logger.warn(f"SystemGroup {group_name} does not exist.")
+        logger.warning(f"SystemGroup {group_name} does not exist.")
         return []
 
 

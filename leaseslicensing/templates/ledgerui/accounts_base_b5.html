@@ -2,6 +2,7 @@
 {% load static %}
 {% load users %}
 {% load utils %}
+{% load django_vite %}
 
 
 {% block myaccount_nav %}
@@ -19,15 +20,13 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/app.css' %}?v={{build_tag}}">
-<link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/chunk-vendors.css' %}?v={{build_tag}}">
-<script type="text/javascript" src="{% static 'leaseslicensing_vue/js/chunk-vendors.js' %}?v={{build_tag}}"></script>
+<script type="module" src="{% vite_asset_url vue3_entry_script %}?v={{ build_tag }}"></script>
 
 <script language="javascript">
-                    var env = {
-                        "kmi_server_url": "{{ KMI_SERVER_URL }}",
-                        "gis_server_url": "{{ GIS_SERVER_URL }}"
-                    }
+    var env = {
+        "kmi_server_url": "{{ KMI_SERVER_URL }}",
+        "gis_server_url": "{{ GIS_SERVER_URL }}"
+    }
 </script>
 
 {% if app_build_url %}

@@ -219,7 +219,6 @@ class OrganisationSerializer(serializers.ModelSerializer):
         return BasicOrganisationContactSerializer(
             obj.contacts.filter(
                 user_status="active",
-                user_role="organisation_admin",
                 user__in=user_delegate_ids,
             ).order_by("user_role", "first_name"),
             many=True,

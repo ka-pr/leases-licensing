@@ -377,7 +377,7 @@ class InvoicingDetails(BaseModel):
                 approval=self.approval,
                 amount=invoice["amount_object"]["amount"],
             ).exists():
-                logger.warn(
+                logger.warning(
                     f"Suspected duplicate invoice skipped for approval: {self.approval}"
                 )
                 invoices_due_today.remove(invoice)
@@ -993,9 +993,9 @@ class InvoicingDetails(BaseModel):
             amount_object["amount"] = amount
             return amount_object
 
-        amount_object[
-            "suffix"
-        ] = f"{gross_turnover_percentage.percentage}% of Gross Turnover"
+        amount_object["suffix"] = (
+            f"{gross_turnover_percentage.percentage}% of Gross Turnover"
+        )
         return amount_object
 
     def get_amount_for_gross_turnover_in_advance_invoice(
@@ -1007,9 +1007,9 @@ class InvoicingDetails(BaseModel):
         if not self.gross_turnover_percentages.filter(
             Q(estimated_gross_turnover__isnull=False) | Q(gross_turnover__isnull=False)
         ).exists():
-            amount_object[
-                "suffix"
-            ] = "No gross turnover estimate or gross turnover actual entered"
+            amount_object["suffix"] = (
+                "No gross turnover estimate or gross turnover actual entered"
+            )
             return amount_object
 
         start_date = datetime.strptime(start_date, "%Y-%m-%d").date()

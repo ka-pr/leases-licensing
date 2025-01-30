@@ -26,15 +26,6 @@
         {% endblock %}
         {% block extra_css %}
             <link rel="stylesheet" href="{% static 'leaseslicensing/css/base.css' %}?v={{build_tag}}">
-            {% if not use_vite_dev_server %}
-            <link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/main.css' %}?v={{ build_tag }}" />
-            {% endif %}
-        {% endblock %}
-
-        {% block extra_js %}
-            {% if use_vite_dev_server %}
-                {% vite_hmr_client %}
-            {% endif %}
         {% endblock %}
 
         {% block custom_js %}
@@ -45,11 +36,7 @@
             }
 
             </script>
-            {% if use_vite_dev_server %}
             <script type="module" src="{% vite_asset_url vue3_entry_script %}?v={{ build_tag }}"></script>
-            {% else %}
-            <script type="module" src="{% static 'leaseslicensing_vue/js/main.js' %}?={{ build_tag }}"></script>
-            {% endif %}
         {% endblock %}
 
         {% block menu_items_left_brand %}
@@ -76,7 +63,6 @@
        {% endblock %}
 
         {% block menu_spacer %}
-            <br>
         {% endblock %}
     </body>
 </html>

@@ -81,7 +81,6 @@
                     :hide-selected="true"
                     :multiple="false"
                     :searchable="true"
-                    :required="true"
                     :loading="loadingOracleCodes"
                     :disabled="false"
                     @select="updatePreviewInvoices"
@@ -856,6 +855,14 @@ export default {
             }
             this.updatePreviewInvoices();
         },
+        updateInvoicingRepetitionTypeKey: function (invoicing_repetition_type) {
+            this.invoicingDetailsComputed = {
+                ...this.invoicingDetailsComputed,
+                invoicing_repetition_type_key: this.repetition_types.find(
+                    (x) => x.id == invoicing_repetition_type
+                ).key,
+            };
+        },
         updateYearsArray: function (incrementType, years_array) {
             if ('annual_increment_amount' == incrementType) {
                 this.invoicingDetailsComputed = {
@@ -1017,6 +1024,9 @@ export default {
             this.updatePreviewInvoices();
         },
         updatePreviewInvoices: async function () {
+            this.updateInvoicingRepetitionTypeKey(
+                this.invoicingDetailsComputed.invoicing_repetition_type
+            );
             const requestOptions = {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },

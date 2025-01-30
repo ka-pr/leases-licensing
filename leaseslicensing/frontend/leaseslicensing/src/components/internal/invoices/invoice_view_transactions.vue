@@ -158,9 +158,17 @@ export default {
             );
         },
         readyToRender: function () {
-            return this.transactions && this.transactions.length > 0;
+            return (
+                this.transactions &&
+                this.transactions.length > 0 &&
+                this.balanceRemaining !== null &&
+                this.paymentsMade !== null
+            );
         },
         balanceRemaining: function () {
+            if (!this.transactions) {
+                return null;
+            }
             return currency(
                 this.invoice_amount -
                     this.transactions[this.transactions.length - 1]
@@ -168,6 +176,9 @@ export default {
             );
         },
         paymentsMade: function () {
+            if (!this.transactions) {
+                return null;
+            }
             return currency(this.invoice_amount - this.balanceRemaining);
         },
         invoiceAmount: function () {
@@ -176,6 +187,7 @@ export default {
     },
     methods: {
         close: function () {
+            this.transactions = null;
             this.isModalOpen = false;
         },
         cumulativeBalance: function (cumulative_balance) {

@@ -87,7 +87,6 @@
                                         :hide-selected="true"
                                         :multiple="false"
                                         :searchable="true"
-                                        :required="true"
                                         :loading="loadingOracleCodes"
                                         :disabled="false"
                                     />

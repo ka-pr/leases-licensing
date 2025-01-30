@@ -52,6 +52,7 @@
     </div>
 </template>
 <script>
+import { v4 as uuid } from 'uuid';
 import { api_endpoints, constants, helpers } from '@/utils/hooks';
 import datatable from '@vue-utils/datatable.vue';
 import RequirementDetail from '@/components/internal/proposals/proposal_add_requirement.vue';
@@ -73,7 +74,7 @@ export default {
         let vm = this;
         return {
             uuid: 0,
-            panelBody: 'proposal-requirements-' + vm._uid,
+            panelBody: 'proposal-requirements-' + uuid(),
             selectedRequirement: {},
             requirements: null,
             requirement_headers: [
@@ -283,7 +284,7 @@ export default {
             swal.fire({
                 title: 'Remove Requirement',
                 text: 'Are you sure you want to remove this requirement?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
                 reverseButtons: true,

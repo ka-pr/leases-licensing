@@ -786,7 +786,7 @@ class Approval(LicensingModelVersioned):
         for invoice in self.invoices.filter(
             status=Invoice.INVOICE_STATUS_DISCARDED,
         ):
-            if not invoice.due_date:
+            if not invoice.date_due:
                 invoice.status = Invoice.INVOICE_STATUS_PENDING_UPLOAD_ORACLE_INVOICE
                 invoice.save()
             else:
@@ -936,11 +936,12 @@ class Approval(LicensingModelVersioned):
             raise ValidationError("You do not have access to reinstate this approval")
 
         if not self.can_reinstate:
-            raise ValidationError("You cannot reinstate approval at this stage")
+            raise ValidationError(
+                "You cannot reinstate an approval unless it has been cancelled, surrended or suspended"
+            )
 
-        today = timezone.now().date()
-        if not self.can_reinstate and self.expiry_date >= today:
-            raise ValidationError("You cannot reinstate approval at this stage")
+        if self.expiry_date <= timezone.now().date():
+            raise ValidationError("You cannot reinstate an expired approval")
 
         if self.status == Approval.APPROVAL_STATUS_CANCELLED:
             self.cancellation_details = ""

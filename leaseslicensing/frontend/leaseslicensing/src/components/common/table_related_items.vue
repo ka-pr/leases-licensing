@@ -75,6 +75,13 @@ export default {
             ];
             return {
                 autoWidth: false,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                    },
+                ],
                 language: {
                     processing: constants.DATATABLE_PROCESSING_HTML,
                 },

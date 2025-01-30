@@ -423,6 +423,10 @@ KMI_SERVER_URL = env("KMI_SERVER_URL", "https://kmi.dbca.wa.gov.au")
 GIS_SERVER_URL = env(
     "GIS_SERVER_URL", "https://kaartdijin-boodja-geoserver.dbca.wa.gov.au"
 )
+GIS_LANDS_AND_WATERS_LAYER_NAME = env(
+    "GIS_LANDS_AND_WATERS_LAYER_NAME",
+    "kaartdijin-boodja-public:CPT_DBCA_LEGISLATED_TENURE",
+)
 GIS_INVERT_XY = env("GIS_INVERT_XY", True)
 
 ABS_API_URL = env("ABS_API_URL", "https://api.data.abs.gov.au")
@@ -678,3 +682,8 @@ VUE3_ENTRY_SCRIPT = env(
     "VUE3_ENTRY_SCRIPT",
     default="src/main.js",  # This path will be auto prefixed with the       static_url_prefix from DJANGO_VITE above
 )  # Path of the vue3 entry point script served by vite
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = env(
+    "SECURE_CROSS_ORIGIN_OPENER_POLICY",
+    "same-origin",
+)

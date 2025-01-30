@@ -24,24 +24,28 @@
                                         :key="application_type.code"
                                         class="list-group-item"
                                     >
-                                        <input
-                                            v-model="selectedApplication"
-                                            class="form-check-input me-1"
-                                            type="radio"
-                                            :value="application_type"
-                                            :aria-label="application_type"
-                                        />
-                                        <label
-                                            :for="
-                                                application_type.code +
-                                                '_' +
-                                                index
-                                            "
-                                            style="font-weight: normal"
-                                            >{{
-                                                application_type.description
-                                            }}</label
-                                        >
+                                        <div class="form-check">
+                                            <input
+                                                v-model="selectedApplication"
+                                                class="form-check-input me-1"
+                                                type="radio"
+                                                :value="application_type"
+                                                :aria-label="application_type"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                role="button"
+                                                :for="
+                                                    application_type.code +
+                                                    '_' +
+                                                    index
+                                                "
+                                                style="font-weight: normal"
+                                                >{{
+                                                    application_type.description
+                                                }}</label
+                                            >
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -57,17 +61,23 @@
                         <div class="col">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <input
-                                        v-model="selectedOrganisation"
-                                        class="form-check-input me-2"
-                                        type="radio"
-                                        name="behalf_of_org"
-                                        value="myself"
-                                        aria-label="myself"
-                                    />
-                                    <label for="myself"
-                                        >Myself (as an individual)</label
-                                    >
+                                    <div class="form-check">
+                                        <input
+                                            v-model="selectedOrganisation"
+                                            class="form-check-input me-2"
+                                            type="radio"
+                                            id="behalf_of_org"
+                                            name="behalf_of_org"
+                                            value="myself"
+                                            aria-label="myself"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            role="button"
+                                            for="behalf_of_org"
+                                            >Myself (as an individual)</label
+                                        >
+                                    </div>
                                 </li>
                                 <template
                                     v-if="
@@ -80,24 +90,33 @@
                                         :key="linkedOrganisation.id"
                                         class="list-group-item"
                                     >
-                                        <input
-                                            v-model="selectedOrganisation"
-                                            class="form-check-input me-2"
-                                            type="radio"
-                                            name="behalf_of_org"
-                                            :value="linkedOrganisation"
-                                            :aria-label="
-                                                linkedOrganisation.ledger_organisation_name
-                                            "
-                                        />
-                                        <label
-                                            :for="
-                                                linkedOrganisation.ledger_organisation_name
-                                            "
-                                            >{{
-                                                linkedOrganisation.ledger_organisation_name
-                                            }}</label
-                                        >
+                                        <div class="form-check">
+                                            <input
+                                                v-model="selectedOrganisation"
+                                                class="form-check-input me-2"
+                                                type="radio"
+                                                :id="
+                                                    linkedOrganisation.ledger_organisation_name
+                                                "
+                                                :name="
+                                                    linkedOrganisation.ledger_organisation_name
+                                                "
+                                                :value="linkedOrganisation"
+                                                :aria-label="
+                                                    linkedOrganisation.ledger_organisation_name
+                                                "
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                role="button"
+                                                :for="
+                                                    linkedOrganisation.ledger_organisation_name
+                                                "
+                                                >{{
+                                                    linkedOrganisation.ledger_organisation_name
+                                                }}</label
+                                            >
+                                        </div>
                                     </li>
                                 </template>
                                 <BootstrapSpinner

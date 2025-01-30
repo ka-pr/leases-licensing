@@ -62,7 +62,7 @@ export default defineConfig({
             `../../static/${applicationNameShort}_vue`
         ),
         publicPath: `/static/${applicationNameShort}_vue/`,
-        sourcemap: true,
+        sourcemap: false,
         rollupOptions: {
             input: {
                 main: path.resolve(__dirname, 'src/main.js'),
@@ -72,6 +72,7 @@ export default defineConfig({
                 chunkFileNames: 'js/[name].js',
                 assetFileNames: '[ext]/[name].[ext]',
             },
+            external: ['jquery', 'Bootstrap', 'jQuery', 'datatables'],
         },
         emptyOutDir: true,
     },

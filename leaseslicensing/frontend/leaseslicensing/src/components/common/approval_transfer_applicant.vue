@@ -479,6 +479,7 @@
 
 <script>
 import { utils, api_endpoints, constants } from '@/utils/hooks';
+import { v4 as uuid } from 'uuid';
 import FormSection from '@/components/forms/section_toggle.vue';
 import alert from '@vue-utils/alert.vue';
 
@@ -496,13 +497,12 @@ export default {
     },
     emits: ['updateApprovalTransferApplicant', 'saveApprovalTransferApplicant'],
     data: function () {
-        let vm = this;
         return {
             values: null,
             countries: null,
-            detailsBody: 'detailsBody' + vm._uid,
-            addressBody: 'addressBody' + vm._uid,
-            contactsBody: 'contactsBody' + vm._uid,
+            detailsBody: 'detailsBody' + uuid(),
+            addressBody: 'addressBody' + uuid(),
+            contactsBody: 'contactsBody' + uuid(),
             panelClickersInitialised: false,
             updatingPersonal: false,
             updatingAddress: false,

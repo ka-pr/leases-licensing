@@ -212,7 +212,7 @@ class Compliance(LicensingModelVersioned):
             return retrieve_email_user(self.submitter)
         if self.proposal.submitter:
             return retrieve_email_user(self.proposal.submitter)
-        logger.warn(
+        logger.warning(
             f"Submitter not found for Compliance: {self.lodgement_number} "
             f"and Proposal: {self.proposal.lodgement_number}"
         )
@@ -222,7 +222,7 @@ class Compliance(LicensingModelVersioned):
     def submitter_email(self):
         if self.submitter_emailuser:
             return self.submitter_emailuser.email
-        logger.warn(
+        logger.warning(
             f"Submitter not found for Compliance: {self.lodgement_number} "
             f"sand Proposal: {self.proposal.lodgement_number}"
         )
@@ -604,12 +604,6 @@ class ComplianceAmendmentRequest(CompRequest):
             ComplianceUserAction.ACTION_ID_REQUEST_AMENDMENTS, request
         )
 
-        # Create a log entry for the applicant
-        self.applicant.log_user_action(
-            ComplianceUserAction.ACTION_ID_REQUEST_AMENDMENTS,
-            request,
-        )
-
         send_amendment_email_notification(self, request, compliance)
 
     def user_has_object_permission(self, user):
@@ -724,16 +718,6 @@ class ComplianceReferral(RevisionedMixin):
 
         # Create a log entry for the compliance
         self.compliance.log_user_action(
-            ComplianceUserAction.ACTION_RESEND_REFERRAL_TO.format(
-                self.id,
-                self.compliance.id,
-                f"{self.referral_as_email_user.get_full_name()}",
-            ),
-            request,
-        )
-
-        # Create a log entry for the applicant
-        self.applicant.log_user_action(
             ComplianceUserAction.ACTION_RESEND_REFERRAL_TO.format(
                 self.id,
                 self.compliance.id,

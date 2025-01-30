@@ -239,19 +239,15 @@ export default {
             let vm = this;
 
             let columns = [];
-            let search = null;
-            if (vm.is_internal) {
-                columns = [
-                    vm.column_id,
-                    vm.column_name,
-                    vm.column_organisation,
-                    vm.column_phone,
-                    vm.column_mobile,
-                    vm.column_actions,
-                    vm.column_email,
-                ];
-                search = true;
-            }
+            columns = [
+                vm.column_id,
+                vm.column_name,
+                vm.column_organisation,
+                vm.column_phone,
+                vm.column_mobile,
+                vm.column_email,
+                vm.column_actions,
+            ];
 
             return {
                 autoWidth: false,
@@ -260,10 +256,10 @@ export default {
                 },
                 columnDefs: [
                     { responsivePriority: 1, targets: 1 },
-                    { responsivePriority: 2, targets: 2 },
-                    { responsivePriority: 6, targets: 3 },
-                    { responsivePriority: 5, targets: 4 },
-                    { responsivePriority: 4, targets: 5 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                    },
                 ],
                 createdRow: function (row, full_data) {
                     full_data.expanded = false;
@@ -272,7 +268,7 @@ export default {
                 responsive: true,
                 serverSide: false,
                 data: vm.competitiveProcessParties,
-                searching: search,
+                searching: true,
                 dom:
                     "<'d-flex align-items-center'<'me-auto'l>f>" +
                     "<'row'<'col-sm-12'tr>>" +

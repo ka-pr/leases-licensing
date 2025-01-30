@@ -761,7 +761,7 @@ export default {
             swal.fire({
                 title: 'Confirm Cancellation of Transfer',
                 text: `Are you sure you want to cancel the transfer of ${this.approval.lodgement_number} - ${this.approval.approval_type}?`,
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, Cancel Transfer',
                 cancelButtonText: 'No, Keep Transfer',

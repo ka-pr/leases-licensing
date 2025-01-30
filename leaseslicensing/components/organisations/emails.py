@@ -404,13 +404,11 @@ def send_org_access_group_request_accept_email_notification(
 
 def send_organisation_request_decline_email_notification(org_request, request):
     email = OrganisationRequestDeclineNotificationEmail()
-
     context = {"request": org_request}
     requester_email_user = retrieve_email_user(org_request.requester)
     msg = email.send(requester_email_user.email, context=context)
     sender = request.user if request else settings.DEFAULT_FROM_EMAIL
     _log_org_request_email(msg, org_request, sender=sender)
-    _log_org_email(msg, org_request.organisation, org_request.requester, sender=sender)
 
 
 def send_organisation_address_updated_email_notification(
@@ -539,6 +537,8 @@ def _log_org_email(email_message, organisation, customer, sender=None):
         "fromm": fromm,
         "cc": all_ccs,
     }
+    logger.debug(f"kwargs: {kwargs}")
+    logger.debug(f"type(organisation): {type(organisation)}")
 
     email_entry = OrganisationLogEntry.objects.create(**kwargs)
 

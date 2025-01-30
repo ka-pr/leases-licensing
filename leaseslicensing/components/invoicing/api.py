@@ -13,6 +13,7 @@ from django.utils import timezone
 from ledger_api_client.utils import generate_payment_session
 from rest_framework import mixins, serializers, status, viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from rest_framework.views import APIView
@@ -341,6 +342,7 @@ class CPICalculationMethodViewSet(
 
 class PayInvoiceSuccessCallbackView(APIView):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [AllowAny]
 
     @transaction.atomic
     def get(self, request, uuid, format=None):

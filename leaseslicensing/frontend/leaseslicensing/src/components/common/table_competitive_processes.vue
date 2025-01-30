@@ -314,7 +314,7 @@ export default {
                     text: '<i class="fa-solid fa-download"></i> Excel',
                     className: 'btn btn-primary rounded me-2',
                     exportOptions: {
-                        columns: ':visible',
+                        columns: ':not(.no-export)',
                     },
                 },
                 {
@@ -322,7 +322,7 @@ export default {
                     text: '<i class="fa-solid fa-download"></i> CSV',
                     className: 'btn btn-primary rounded',
                     exportOptions: {
-                        columns: ':visible',
+                        columns: ':not(.no-export)',
                     },
                 },
             ];
@@ -342,6 +342,14 @@ export default {
                 responsive: true,
                 serverSide: true,
                 searching: search,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                        className: 'no-export',
+                    },
+                ],
                 ajax: {
                     url:
                         api_endpoints.competitive_process +
@@ -448,7 +456,7 @@ export default {
                 .fire({
                     title: `Discard Competitive Process ${competitive_process_lodgement_number}`,
                     text: 'Are you sure you want to discard this competitive process?',
-                    icon: 'warning',
+                    icon: 'question',
                     showCancelButton: true,
                     reverseButtons: true,
                     confirmButtonText: 'Discard',
@@ -495,7 +503,7 @@ export default {
             swal.fire({
                 title: 'Create New Competitive Process',
                 text: 'Are you sure you want to create new competitive process?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Create New Competitive Process',
                 preConfirm: () => {

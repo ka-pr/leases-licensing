@@ -1157,7 +1157,7 @@ export default {
                                 Swal.fire({
                                     title: 'No Referee Found',
                                     text: 'Would you like to invite a new external referee to the system?',
-                                    icon: 'warning',
+                                    icon: 'question',
                                     showCancelButton: true,
                                     reverseButtons: true,
                                     confirmButtonText: 'Yes',
@@ -1314,7 +1314,7 @@ export default {
             swal.fire({
                 title: 'Send Referral',
                 text: 'Are you sure you want to send to referral?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Send Referral',
                 reverseButtons: true,
@@ -1385,7 +1385,7 @@ export default {
             swal.fire({
                 title: 'Retract External Referral Invite',
                 text: `Are you sure you want to retract the invite sent to ${external_referee_invite.full_name} (${external_referee_invite.email})?`,
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Retract Email',
                 reverseButtons: true,

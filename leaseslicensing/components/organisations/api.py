@@ -760,10 +760,12 @@ class OrganisationRequestFilterBackend(LedgerDatatablesFilterBackend):
             queryset = queryset.filter(status=filter_status)
 
         queryset = self.apply_request(
-            request, queryset, view, ledger_lookup_fields=["ind_applicant"]
+            request, queryset, view, ledger_lookup_fields=["requester"]
         )
 
+        setattr(view, "_datatables_filtered_count", queryset.count())
         setattr(view, "_datatables_total_count", total_count)
+
         return queryset
 
 
@@ -1083,7 +1085,9 @@ class OrganisationContactFilterBackend(LedgerDatatablesFilterBackend):
             admin_user_count=Value(admin_user_count, output_field=IntegerField())
         )
 
+        setattr(view, "_datatables_filtered_count", queryset.count())
         setattr(view, "_datatables_total_count", total_count)
+
         return queryset
 
 
@@ -1104,6 +1108,7 @@ class OrganisationContactPaginatedViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class OrganisationContactViewSet(LicensingViewSet):
+    http_method_names = ["head", "get", "post", "put", "patch", "delete"]
     serializer_class = OrganisationContactSerializer
     queryset = OrganisationContact.objects.all()
     permiission_classes = []
@@ -1119,15 +1124,12 @@ class OrganisationContactViewSet(LicensingViewSet):
 
     def destroy(self, request, *args, **kwargs):
         """delete an Organisation contact"""
-        admin_user_count = (
-            self.get_object()
-            .organisation.contacts.filter(
-                user_role=OrganisationContact.USER_ROLE_CHOICE_ADMIN,
-                user_status=OrganisationContact.USER_STATUS_CHOICE_ACTIVE,
-            )
-            .count()
-        )
-        org_contact = self.get_object().organisation.contacts.get(id=kwargs["pk"])
+        instance = self.get_object()
+        admin_user_count = instance.organisation.contacts.filter(
+            user_role=OrganisationContact.USER_ROLE_CHOICE_ADMIN,
+            user_status=OrganisationContact.USER_STATUS_CHOICE_ACTIVE,
+        ).count()
+        org_contact = instance.organisation.contacts.get(id=kwargs["pk"])
         if (
             admin_user_count == 1
             and org_contact.user_role == OrganisationContact.USER_ROLE_CHOICE_ADMIN
@@ -1135,7 +1137,9 @@ class OrganisationContactViewSet(LicensingViewSet):
             raise serializers.ValidationError(
                 "Cannot delete the last Organisation Admin"
             )
-        return super().destroy(request, *args, **kwargs)
+
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -1160,8 +1164,7 @@ class MyOrganisationsViewSet(viewsets.ReadOnlyModelViewSet):
         elif is_customer(self.request):
             return Organisation.objects.filter(
                 contacts__user=user.id,
-                contacts__user_status="active",
-                contacts__user_role=OrganisationContact.USER_ROLE_CHOICE_ADMIN,
+                contacts__user_status=OrganisationContact.USER_STATUS_CHOICE_ACTIVE,
             )
         return Organisation.objects.none()
 

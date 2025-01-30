@@ -152,6 +152,7 @@ export default {
         },
         sendData: async function () {
             let vm = this;
+            vm.amendingcompliance = true;
             vm.loading = true;
             vm.errors = false;
             const amendment = JSON.stringify(vm.amendment);
@@ -163,7 +164,7 @@ export default {
             if (!response.ok) {
                 vm.errors = true;
                 this.errorString = await helpers.parseFetchError(response);
-                vm.amendingcompliance = true;
+                vm.amendingcompliance = false;
             } else {
                 this.loading = false;
                 new swal(
@@ -171,7 +172,7 @@ export default {
                     `An email has been sent to applicant with the request to amend compliance ${vm.compliance_lodgement_number}.`,
                     'success'
                 );
-                vm.amendingcompliance = true;
+                vm.amendingcompliance = false;
                 vm.close();
                 vm.$router.push({ name: 'internal-compliances-dash' }); //Navigate to dashboard after creating Amendment request
             }

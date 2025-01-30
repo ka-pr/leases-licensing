@@ -433,6 +433,7 @@ export default {
                 text: 'Are you sure you want to remove this requirement?',
                 type: 'warning',
                 showCancelButton: true,
+                reverseButtons: true,
                 confirmButtonText: 'Remove Requirement',
                 confirmButtonColor: '#d9534f',
             }).then(

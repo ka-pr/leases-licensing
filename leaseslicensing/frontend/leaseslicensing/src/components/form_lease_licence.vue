@@ -55,8 +55,8 @@
                         :key="proposal.id"
                         :proposal-data="proposal.profit_and_loss_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="proposal.profit_and_loss_text = $event"
                     />
                 </div>
             </div>
@@ -98,8 +98,8 @@
                         :key="proposal.id"
                         :proposal-data="proposal.cash_flow_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="proposal.cash_flow_text = $event"
                     />
                 </div>
             </div>
@@ -140,8 +140,10 @@
                         :key="proposal.id"
                         :proposal-data="proposal.capital_investment_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="
+                            proposal.capital_investment_text = $event
+                        "
                     />
                 </div>
             </div>
@@ -189,8 +191,10 @@
                         :key="proposal.id"
                         :proposal-data="proposal.financial_capacity_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="
+                            proposal.financial_capacity_text = $event
+                        "
                     />
                 </div>
             </div>
@@ -236,8 +240,10 @@
                         :key="proposal.id"
                         :proposal-data="proposal.available_activities_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="
+                            proposal.available_activities_text = $event
+                        "
                     />
                 </div>
             </div>
@@ -283,8 +289,8 @@
                         :key="proposal.id"
                         :proposal-data="proposal.market_analysis_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="proposal.market_analysis_text = $event"
                     />
                 </div>
             </div>
@@ -328,8 +334,8 @@
                         :key="proposal.id"
                         :proposal-data="proposal.staffing_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
                         required
+                        @text-changed="proposal.staffing_text = $event"
                     />
                 </div>
             </div>
@@ -383,7 +389,7 @@
                         :key="proposal.id"
                         :proposal-data="proposal.key_personnel_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
+                        @text-changed="proposal.key_personnel_text = $event"
                     />
                 </div>
             </div>
@@ -424,7 +430,7 @@
                         :key="proposal.id"
                         :proposal-data="proposal.key_milestones_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
+                        @text-changed="proposal.key_milestones_text = $event"
                     />
                 </div>
             </div>
@@ -469,7 +475,7 @@
                         :key="proposal.id"
                         :proposal-data="proposal.risk_factors_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
+                        @text-changed="proposal.risk_factors_text = $event"
                     />
                 </div>
             </div>
@@ -514,7 +520,9 @@
                         :key="proposal.id"
                         :proposal-data="proposal.legislative_requirements_text"
                         :readonly="readonly"
-                        :can_view_richtext_src="true"
+                        @text-changed="
+                            proposal.legislative_requirements_text = $event
+                        "
                     />
                 </div>
             </div>

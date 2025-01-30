@@ -606,7 +606,7 @@
                             <ApplicationsTable
                                 ref="proposals_table"
                                 level="organisation_view"
-                                :target_organisation_id="org.id"
+                                :target-organisation-id="org.id"
                                 :url="proposals_url"
                             />
                         </FormSection>
@@ -624,7 +624,7 @@
                             <CompliancesTable
                                 ref="compliances_table"
                                 level="organisation_view"
-                                :target_organisation_id="org.id"
+                                :target-organisation-id="org.id"
                                 :url="compliances_url"
                             />
                         </FormSection>

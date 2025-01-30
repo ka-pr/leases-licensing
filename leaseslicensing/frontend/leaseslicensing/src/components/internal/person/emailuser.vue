@@ -49,7 +49,11 @@
                     label="Address Details"
                     index="address-details"
                 >
-                    <form id="address-details-form" class="mb-2">
+                    <form
+                        v-if="emailUser.residential_address"
+                        id="address-details-form"
+                        class="mb-2"
+                    >
                         <fieldset>
                             <legend>Residential Address</legend>
                             <div class="address-box">
@@ -207,7 +211,10 @@
                         </fieldset>
                     </form>
 
-                    <form class="form-horizontal mb-2">
+                    <form
+                        v-if="emailUser.postal_address"
+                        class="form-horizontal mb-2"
+                    >
                         <fieldset>
                             <legend>Postal Address</legend>
                             <div class="address-box">

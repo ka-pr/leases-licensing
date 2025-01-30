@@ -501,6 +501,15 @@ def save_document(request, instance, comms_instance, document_type, input_name=N
             approval_type_document_type = request.data.get(
                 "approval_type_document_type"
             )
+            if not approval_type_document_type.isnumeric() or not (
+                ApprovalTypeDocumentType.objects.filter(
+                    id=approval_type_document_type
+                ).exists()
+            ):
+                approval_type_document_type = ApprovalTypeDocumentType.objects.get(
+                    name="Other"
+                ).id
+
             document = instance.lease_licence_approval_documents.get_or_create(
                 input_name=input_name,
                 name=filename,

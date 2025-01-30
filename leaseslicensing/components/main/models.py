@@ -530,7 +530,7 @@ class BaseApplicant(RevisionedMixin):
         try:
             emailuser = retrieve_email_user(self.emailuser_id)
         except EmailUser.DoesNotExist:
-            logger.warn(
+            logger.warning(
                 f"Tried to log user action for proposal applicant {self.id} "
                 f"but couldn't find ledger user with id {self.emailuser_id}"
             )

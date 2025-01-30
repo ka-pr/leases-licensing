@@ -1,47 +1,35 @@
 <template id="comms_logs">
     <div class="">
-        <div class="card card-default">
+        <div class="card mb-3">
             <div class="card-header">Logs</div>
-            <div class="card-body card-collapse">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <strong>Communications</strong><br />
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <a
-                                    ref="showCommsBtn"
-                                    tabindex="2"
-                                    href="#"
-                                    @click.prevent=""
-                                    >Show</a
-                                >
-                            </div>
-                            <template v-if="!disable_add_entry">
-                                <div class="col-sm-1">
-                                    <span>|</span>
-                                </div>
-                                <div class="col-sm-5">
-                                    <a
-                                        ref="addCommsBtn"
-                                        href="#"
-                                        class="float-end"
-                                        @click="addComm()"
-                                        >Add Entry</a
-                                    >
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 mt-1">
-                        <strong>Actions</strong><br />
-                        <a
-                            ref="showActionBtn"
-                            tabindex="2"
-                            href="#"
-                            @click.prevent=""
-                            >Show</a
+            <div class="card-body border-bottom">
+                <label for="assigned-to" class="form-label"
+                    >Communication Logs</label
+                >
+                <div class="rounded border py-2">
+                    <span class="ps-3 pe-2"
+                        ><i class="bi bi-card-list"></i>
+                    </span>
+                    <a ref="showCommsBtn" href="#" class="pe-5" @click.prevent
+                        >View</a
+                    >
+                    <template v-if="!disable_add_entry">
+                        <span class="pe-2">
+                            <i class="bi bi-plus-circle"></i>
+                        </span>
+                        <a ref="addCommsBtn" href="#" @click.prevent="addComm()"
+                            >Add Entry</a
                         >
-                    </div>
+                    </template>
+                </div>
+            </div>
+            <div class="card-body">
+                <label for="assigned-to" class="form-label">Action Logs</label>
+                <div class="rounded border py-2">
+                    <span class="ps-3 pe-2"
+                        ><i class="bi bi-card-list"></i>
+                    </span>
+                    <a ref="showActionBtn" href="#" @click.prevent>View</a>
                 </div>
             </div>
         </div>

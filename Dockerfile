@@ -115,15 +115,6 @@ RUN poetry completions bash > ~/.bash_completion && \
     poetry run pip install --upgrade pip
 RUN --mount=type=cache,target=~/.cache/pypoetry/cache poetry install --only main --no-interaction --no-ansi
 
-FROM python_dependencies_leaseslicensing as collect_static_leaseslicensing
-
-COPY --chown=oim:oim gunicorn.ini.py manage.py manage.sh python-cron ./
-COPY --chown=oim:oim leaseslicensing ./leaseslicensing
-COPY --chown=oim:oim .git ./.git
-
-RUN touch /app/.env && \
-    poetry run python manage.py collectstatic --no-input
-
 # The following patches must be applied for seggregated systems when setting up a new environment (i.e. local, dev, uat, prod)
 #
 # COPY --chown=oim:oim admin.patch.additional
@@ -143,17 +134,22 @@ RUN touch /app/.env && \
 # after running django migrations the patch can be reversed with:
 # RUN patch -r $virtual_env_path/lib/python$python_version/site-packages/reversion/migrations/0001_squashed_0004_auto_20160611_1202.py 0001_squashed_0004_auto_20160611_1202.patch
 
+FROM python_dependencies_leaseslicensing as install_build_vue3_leaseslicensing
 
-FROM collect_static_leaseslicensing as install_build_vue3_leaseslicensing
+COPY --chown=oim:oim leaseslicensing ./leaseslicensing
+
 RUN cd /app/leaseslicensing/frontend/leaseslicensing ; npm ci --omit=dev && \
     cd /app/leaseslicensing/frontend/leaseslicensing ; npm run build
 
-FROM install_build_vue3_leaseslicensing as launch_leaseslicensing
+FROM install_build_vue3_leaseslicensing as collect_static_leaseslicensing
 
-# Requires two collectstatics as npm run build is referencing static file in the django static directory (this should be fixed to point to the static in the static directory instead)
+COPY --chown=oim:oim manage.py manage.sh ./
 RUN touch /app/.env && \
     poetry run python manage.py collectstatic --no-input
 
+FROM install_build_vue3_leaseslicensing as launch_leaseslicensing
+
+COPY --chown=oim:oim gunicorn.ini.py python-cron ./
 EXPOSE 8080
 HEALTHCHECK --interval=1m --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "-", "http://localhost:8080/"]
 CMD ["/startup.sh"]

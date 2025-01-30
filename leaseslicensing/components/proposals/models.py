@@ -1670,7 +1670,7 @@ class Proposal(LicensingModelVersioned, DirtyFieldsMixin):
             try:
                 referral = Referral.objects.get(proposal=self, referral=user.id)
             except Referral.DoesNotExist:
-                logger.warn(
+                logger.warning(
                     f"Referral with Proposal: {self} and referral user id: {user.id} does not exist"
                 )
                 return False
@@ -3455,7 +3455,7 @@ class Proposal(LicensingModelVersioned, DirtyFieldsMixin):
         self.save()
 
     def generate_invoicing_details(self):
-        if self.invoicing_details:
+        if hasattr(self, "invoicing_details") and self.invoicing_details:
             logger.warning(
                 "Couldn't generate an invoicing details. "
                 f"Proposal {self} already has an associated Invoicing Details: {self.invoicing_details}"
@@ -3788,7 +3788,7 @@ class Proposal(LicensingModelVersioned, DirtyFieldsMixin):
 
         for document in self.lease_licence_approval_documents.all():
             if document.approval_type_id != approval_type.id:
-                logger.warn(
+                logger.warning(
                     f"Ignoring {ApprovalType.objects.get(id=document.approval_type.id)} "
                     f"document `{document}` for Approval of type `{approval_type}`."
                 )
@@ -4115,14 +4115,14 @@ class ProposalGeometry(models.Model):
     @property
     def area_sqm(self):
         if not hasattr(self, "area") or not self.area:
-            logger.warn(f"ProposalGeometry: {self.id} has no area")
+            logger.warning(f"ProposalGeometry: {self.id} has no area")
             return None
         return self.area.sq_m
 
     @property
     def area_sqhm(self):
         if not hasattr(self, "area") or not self.area:
-            logger.warn(f"ProposalGeometry: {self.id} has no area")
+            logger.warning(f"ProposalGeometry: {self.id} has no area")
             return None
         return self.area.sq_m / 10000
 
@@ -4309,7 +4309,7 @@ class AmendmentRequest(ProposalRequest):
                 )
 
                 # Mark any related documents that the assessor may have attached to the proposal as not delete-able
-                self.mark_documents_not_deleteable()
+                self.proposal.mark_documents_not_deleteable()
 
             # Create a log entry for the proposal
             proposal.log_user_action(

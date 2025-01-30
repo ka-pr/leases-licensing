@@ -13,6 +13,7 @@ from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
+from rest_framework_datatables.filters import DatatablesFilterBackend
 from rest_framework_datatables.pagination import DatatablesPageNumberPagination
 from rest_framework_datatables.renderers import DatatablesRenderer
 from reversion.errors import RevertError
@@ -45,7 +46,6 @@ from leaseslicensing.components.main.api import (
     UserActionLoggingViewset,
 )
 from leaseslicensing.components.main.decorators import basic_exception_handler
-from leaseslicensing.components.main.filters import LedgerDatatablesFilterBackend
 from leaseslicensing.components.main.process_document import process_generic_document
 from leaseslicensing.components.main.serializers import RelatedItemSerializer
 from leaseslicensing.components.organisations.utils import get_organisation_ids_for_user
@@ -117,19 +117,13 @@ class GetApprovalStatusesDict(views.APIView):
         return Response(approval_statuses)
 
 
-class ApprovalFilterBackend(LedgerDatatablesFilterBackend):
+class ApprovalFilterBackend(DatatablesFilterBackend):
     """
     Custom filters
     """
 
     def filter_queryset(self, request, queryset, view):
         total_count = queryset.count()
-
-        def get_choice(status, choices=Proposal.PROCESSING_STATUS_CHOICES):
-            for i in choices:
-                if i[1] == status:
-                    return i[0]
-            return None
 
         filter_approval_type = (
             request.GET.get("filter_approval_type")
@@ -212,18 +206,11 @@ class ApprovalFilterBackend(LedgerDatatablesFilterBackend):
                 current_proposal__groups__group_id=filter_approval_group
             )
 
-        # getter = request.query_params.get
-        # fields = self.get_fields(getter)
-        # ordering = self.get_ordering(getter, fields)
-        queryset = self.apply_request(
-            request,
-            queryset,
-            view,
-            ledger_lookup_fields=[
-                "current_proposal__org_applicant",
-            ],  # "current_proposal__ind_applicant" replaced by ProposalApplicant member
-        )
+        queryset = super().filter_queryset(request, queryset, view)
+
+        setattr(view, "_datatables_filtered_count", queryset.count())
         setattr(view, "_datatables_total_count", total_count)
+
         return queryset
 
 

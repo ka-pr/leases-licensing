@@ -64,6 +64,7 @@
 
 <script>
 import datatable from '@/utils/vue/datatable.vue';
+import { v4 as uuid } from 'uuid';
 import { api_endpoints, constants } from '@/utils/hooks';
 import CollapsibleFilters from '@/components/forms/collapsible_component.vue';
 
@@ -89,9 +90,8 @@ export default {
         },
     },
     data() {
-        let vm = this;
         return {
-            datatable_id: 'invoices-datatable-' + vm._uid,
+            datatable_id: 'organisation-requests-datatable-' + uuid(),
 
             // selected values for filtering
             filterOrganisation: sessionStorage.getItem('filterOrganisation')
@@ -165,6 +165,7 @@ export default {
         OrganisationNameColumn: function () {
             return {
                 data: 'ledger_organisation_name',
+                name: 'organisation__ledger_organisation_name',
                 orderable: true,
                 searchable: true,
                 visible: true,
@@ -176,6 +177,7 @@ export default {
         applicantColumn: function () {
             return {
                 data: 'requester_name',
+                name: 'requester__first_name, requester__last_name',
                 orderable: true,
                 searchable: true,
                 visible: true,
@@ -220,6 +222,7 @@ export default {
         assignedToColumn: function () {
             return {
                 data: 'assigned_officer_name',
+                name: 'assigned_officer',
                 orderable: true,
                 searchable: true,
                 visible: true,
@@ -273,7 +276,7 @@ export default {
                         text: '<i class="fa-solid fa-download"></i> Excel',
                         className: 'btn btn-primary rounded me-2',
                         exportOptions: {
-                            columns: ':visible',
+                            columns: ':not(.no-export)',
                         },
                     },
                     {
@@ -281,14 +284,22 @@ export default {
                         text: '<i class="fa-solid fa-download"></i> CSV',
                         className: 'btn btn-primary rounded',
                         exportOptions: {
-                            columns: ':visible',
+                            columns: ':not(.no-export)',
                         },
                     },
                 ];
             }
 
             return {
-                searching: false,
+                searching: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                        className: 'no-export',
+                    },
+                ],
                 autoWidth: false,
                 language: {
                     processing: constants.DATATABLE_PROCESSING_HTML,

@@ -11,7 +11,7 @@
 
     We sent the original referral request to this email address on {{external_referee_invite.datetime_sent|date:'d/m/Y'}}.
     {% else %}
-    You have been invited to complete referral for DBCA {{proposal.application_type.name_display}} Proposal: <strong>{{proposal.lodgement_number}}</strong>.
+    You have been invited to complete a referral for DBCA {{proposal.application_type.name_display}} Proposal: <strong>{{proposal.lodgement_number}}</strong>.
     {% endif %}
 
 

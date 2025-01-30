@@ -1,6 +1,7 @@
 import logging
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from leaseslicensing.components.main.api import (
     KeyValueListMixin,
@@ -32,13 +33,7 @@ from leaseslicensing.components.tenure.serializers import (
     TenureSerializer,
     VestingSerializer,
 )
-from leaseslicensing.permissions import (
-    IsAssessor,
-    IsFinanceOfficer,
-    IsInternal,
-    IsOrganisationAccessOfficer,
-    IsReferee,
-)
+from leaseslicensing.permissions import IsAssessor
 
 logger = logging.getLogger(__name__)
 
@@ -139,7 +134,7 @@ class RegionViewSet(
     key_value_display_field = "name"
     key_value_serializer_class = RegionSerializer
     queryset = Region.objects.all()
-    permission_classes = [IsAssessor | IsFinanceOfficer | IsOrganisationAccessOfficer]
+    permission_classes = [IsAuthenticated]
 
 
 class DistrictViewSet(
@@ -153,7 +148,7 @@ class DistrictViewSet(
     key_value_serializer_class = DistrictKeyValueSerializer
     key_value_display_field = "name"
     queryset = District.objects.all()
-    permission_classes = [IsAssessor | IsFinanceOfficer | IsOrganisationAccessOfficer]
+    permission_classes = [IsAuthenticated]
 
 
 class LGAViewSet(
@@ -181,4 +176,4 @@ class GroupViewSet(
     key_value_display_field = "name"
     key_value_serializer_class = GroupSerializer
     queryset = Group.objects.all()
-    permission_classes = [IsInternal | IsReferee]
+    permission_classes = [IsAuthenticated]

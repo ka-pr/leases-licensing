@@ -207,27 +207,36 @@ export default {
                 console.error(error);
             }
         },
-        sendData: async function () {
+        sendData: function () {
             this.errors = false;
-            try {
-                await fetch('/api/amendment_request.json', {
-                    body: JSON.stringify(this.amendment),
-                    method: 'POST',
+            fetch('/api/amendment_request.json', {
+                body: JSON.stringify(this.amendment),
+                method: 'POST',
+            })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        this.errorString = await response.text();
+                        this.errors = true;
+                        this.amendingProposal = true;
+                        return;
+                    }
+                    await new swal(
+                        'Sent',
+                        'An email has been sent to the applicant with the request to amend this application',
+                        'success'
+                    );
+                    this.amendingProposal = true;
+                    this.close();
+                    this.$router.push({ path: '/internal' }); //Navigate to dashboard after creating Amendment request
+                })
+                .catch((error) => {
+                    console.error(error);
+                    this.errors = true;
+                    this.errorString = helpers.apiVueResourceError(error);
+                })
+                .finally(() => {
+                    this.amendingProposal = true;
                 });
-                await new swal(
-                    'Sent',
-                    'An email has been sent to the applicant with the request to amend this application',
-                    'success'
-                );
-                this.amendingProposal = true;
-                this.close();
-                this.$router.push({ path: '/internal' }); //Navigate to dashboard after creating Amendment request
-            } catch (error) {
-                console.error(error);
-                this.errors = true;
-                this.errorString = helpers.apiVueResourceError(error);
-                this.amendingProposal = true;
-            }
         },
     },
 };

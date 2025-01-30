@@ -49,6 +49,7 @@ logger = logging.getLogger("leaseslicensing")
 
 class CompetitiveProcessFilterBackend(LedgerDatatablesFilterBackend):
     def filter_queryset(self, request, queryset, view):
+        total_count = queryset.count()
         filter_status = (
             request.GET.get("filter_status")
             if request.GET.get("filter_status") != "all"
@@ -82,7 +83,9 @@ class CompetitiveProcessFilterBackend(LedgerDatatablesFilterBackend):
             request, queryset, view, ledger_lookup_fields=["assigned_officer_id"]
         )
 
-        # setattr(view, "_datatables_total_count", total_count)
+        setattr(view, "_datatables_filtered_count", queryset.count())
+        setattr(view, "_datatables_total_count", total_count)
+
         return queryset
 
 

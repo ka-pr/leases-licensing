@@ -3,20 +3,18 @@
 {%  block content %}
 
  {% if linked_by.email != user.email %}
-        Your have been suspended from:
+        You have been suspended from the following organisation:
 
         Organisation : {{ organisation.name }}
-
         ABN : {{ organisation.abn}}
 
         You were linked to this organisation by {{ linked_by.get_full_name }}({{linked_by.email}}).
     {% else %}
-        Your have suspended yourself from:
+        You have suspended yourself from the following organisation:
 
         Organisation : {{ organisation.name }}
-
         ABN : {{ organisation.abn}}
     {% endif %}
-    You can now lodge proposals on behalf of this organisation.
+    You can no longer lodge proposals on behalf of this organisation.
 
 {%  endblock %}

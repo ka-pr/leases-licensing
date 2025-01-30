@@ -503,7 +503,7 @@
                                                 />
                                                 <button
                                                     class="btn btn-secondary btn-copy input-group-text"
-                                                    @click="
+                                                    @click.prevent="
                                                         copyToClipboard(
                                                             'admin-pin-1'
                                                         )
@@ -531,7 +531,7 @@
                                                 />
                                                 <button
                                                     class="btn btn-secondary btn-copy input-group-text"
-                                                    @click="
+                                                    @click.prevent="
                                                         copyToClipboard(
                                                             'admin-pin-2'
                                                         )
@@ -574,7 +574,7 @@
                                                 />
                                                 <button
                                                     class="btn btn-secondary btn-copy input-group-text"
-                                                    @click="
+                                                    @click.prevent="
                                                         copyToClipboard(
                                                             'user-pin-1'
                                                         )
@@ -602,7 +602,7 @@
                                                 />
                                                 <button
                                                     class="btn btn-secondary btn-copy input-group-text"
-                                                    @click="
+                                                    @click.prevent="
                                                         copyToClipboard(
                                                             'user-pin-2'
                                                         )
@@ -1130,6 +1130,7 @@ export default {
                                 ' (' +
                                 email +
                                 ')?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Accept Linking Request',
                             reverseButtons: true,
@@ -1142,7 +1143,6 @@ export default {
                                             vm.org.id + '/accept_user'
                                         ),
                                         {
-                                            emulateJSON: true,
                                             method: 'POST',
                                             body: JSON.stringify(
                                                 vm.contact_user
@@ -1207,6 +1207,7 @@ export default {
                                 ' (' +
                                 email +
                                 ')?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText:
                                 'Accept Previously Declined Linking Request',
@@ -1283,6 +1284,7 @@ export default {
                                 ' (' +
                                 email +
                                 ')?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Decline Linking Request',
                             reverseButtons: true,
@@ -1442,6 +1444,7 @@ export default {
                                 ' (' +
                                 email +
                                 ') to an organisation admin?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText:
                                 'Promote User to Organisation Admin',
@@ -1517,6 +1520,7 @@ export default {
                                 ' (' +
                                 email +
                                 ') to an organisation user?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText:
                                 'Demote User to Organisation User',
@@ -1601,6 +1605,7 @@ export default {
                                 ' (' +
                                 email +
                                 ')?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Suspend User',
                             reverseButtons: true,
@@ -1681,6 +1686,7 @@ export default {
                                 ' (' +
                                 email +
                                 ')?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Reinstate User',
                             reverseButtons: true,
@@ -1754,6 +1760,7 @@ export default {
                                 ' (' +
                                 email +
                                 ')?',
+                            icon: 'question',
                             showCancelButton: true,
                             confirmButtonText: 'Relink User',
                             reverseButtons: true,
@@ -1918,7 +1925,7 @@ export default {
                 }
             )
                 .then(async (response) => {
-                    await response.text();
+                    const response_text = await response.text();
                     if (response.ok) {
                         swal.fire(
                             'Contact Removed',
@@ -1927,14 +1934,14 @@ export default {
                         );
                         vm.$refs.contacts_datatable.vmDataTable.ajax.reload();
                     } else {
-                        throw new Error(response.text());
+                        throw new Error(response_text);
                     }
                 })
                 .catch((error) => {
                     console.error(error);
                     swal.fire(
                         'Remove Contact Failed',
-                        'The contact could not be deleted because of the following error ' +
+                        'The contact could not be deleted because of the following ' +
                             error,
                         'error'
                     );
@@ -2016,7 +2023,7 @@ export default {
                     const textArea = document.createElement('textarea');
                     textArea.value = element.value;
                     document.body.appendChild(textArea);
-                    textArea.focus();
+                    textArea.focus({ preventScroll: true });
                     textArea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textArea);

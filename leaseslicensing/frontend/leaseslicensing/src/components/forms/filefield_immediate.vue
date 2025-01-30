@@ -39,30 +39,29 @@
         <div
             v-if="
                 (isRepeatable || (!isRepeatable && numDocuments === 0)) &&
-                !show_spinner &&
-                !readonly
+                !show_spinner
             "
         >
             <input
+                type="file"
                 :id="name"
                 :key="name"
                 :name="name"
                 :multiple="multiple"
-                type="file"
                 :accept="fileTypes"
-                class=""
                 :class="ffu_input_element_classname"
                 @change="handleChangeWrapper"
             />
             <div v-if="replace_button_by_text">
-                <span
+                <button
                     :id="'button-' + name"
                     class="btn btn-primary ffu-input-text"
-                    @click="button_clicked(name)"
+                    @click.prevent="button_clicked(name)"
+                    :disabled="readonly"
                 >
                     <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;
-                    {{ text_string }}</span
-                >
+                    {{ text_string }}
+                </button>
             </div>
         </div>
     </div>
@@ -204,19 +203,18 @@ export default {
             }
         },
     },
-    mounted: async function () {
-        this.$nextTick(async () => {
+    mounted: function () {
+        this.$nextTick(() => {
             if (
                 this.documentActionUrl === 'temporary_document' &&
                 !this.temporary_document_collection_id
             ) {
                 // pass
             } else {
-                await this.get_documents();
+                this.get_documents();
             }
         });
     },
-
     methods: {
         button_clicked: function (value) {
             if (this.replace_button_by_text) {
@@ -232,7 +230,7 @@ export default {
                 await this.save_document(e);
             }
         },
-        get_documents: async function () {
+        get_documents: function () {
             var formData = new FormData();
 
             if (this.document_action_url) {
@@ -243,8 +241,7 @@ export default {
                     formData.append('comms_log_id', this.commsLogId);
                 }
                 formData.append('input_name', this.name);
-                formData.append('csrfmiddlewaretoken', this.csrf_token);
-                await fetch(this.document_action_url, {
+                fetch(this.document_action_url, {
                     body: formData,
                     method: 'POST',
                 })
@@ -256,10 +253,10 @@ export default {
                         this.documents = resData.filedata;
                         this.commsLogId = resData.comms_instance_id;
                     })
-                    .catch((error) => {
+                    .catch((resData) => {
                         swal.fire({
                             title: 'File Error',
-                            text: error,
+                            text: JSON.stringify(resData),
                             icon: 'error',
                         });
                     })
@@ -283,7 +280,7 @@ export default {
                 formData.append('comms_log_id', this.commsLogId);
             }
             formData.append('document_id', file.id);
-            formData.append('csrfmiddlewaretoken', this.csrf_token);
+
             if (this.document_action_url) {
                 const res = await fetch(this.document_action_url, {
                     body: formData,
@@ -304,7 +301,7 @@ export default {
             if (this.commsLogId) {
                 formData.append('comms_log_id', this.commsLogId);
             }
-            formData.append('csrfmiddlewaretoken', this.csrf_token);
+
             if (this.document_action_url) {
                 await fetch(this.document_action_url, {
                     body: formData,
@@ -350,7 +347,7 @@ export default {
             this.show_spinner = false;
         },
 
-        save_document: async function (e) {
+        save_document: function (e) {
             var formData = new FormData();
             if (!this.document_action_url) {
                 console.error('No document_action_url provided');
@@ -376,29 +373,27 @@ export default {
                 );
                 formData.append('filename', file.name);
                 formData.append('_file', this.uploadFile(file));
-                formData.append('csrfmiddlewaretoken', this.csrf_token);
 
-                await fetch(this.document_action_url, {
+                fetch(this.document_action_url, {
                     body: formData,
                     method: 'POST',
                 })
                     .then(async (response) => {
+                        const data = await response.json();
                         if (!response.ok) {
-                            return await response.json().then((json) => {
-                                throw new Error(json);
+                            swal.fire({
+                                title: 'File Error',
+                                text: JSON.stringify(data),
+                                icon: 'error',
                             });
-                        } else {
-                            return await response.json();
                         }
-                    })
-                    .then((data) => {
                         this.documents = data.filedata;
                         this.commsLogId = data.comms_instance_id;
                     })
                     .catch((error) => {
                         swal.fire({
                             title: 'File Error',
-                            text: error,
+                            text: JSON.stringify(error),
                             icon: 'error',
                         });
                     });

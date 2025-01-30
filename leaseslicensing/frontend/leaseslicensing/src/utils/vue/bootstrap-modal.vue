@@ -210,8 +210,8 @@ export default {
     background-color: #226fbb;
     color: #fff;
     background: #3580ca
-        url('../../../../../../staticfiles_ll/img/parks-bg-banner.gif') repeat-x
-        center bottom;
+        url('/static/leaseslicensing_vue/src/assets/parks-bg-banner.gif')
+        repeat-x center bottom;
 }
 
 .btn-close {

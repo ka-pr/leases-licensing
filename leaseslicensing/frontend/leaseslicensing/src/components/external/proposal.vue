@@ -438,37 +438,29 @@ export default {
                         this.proposal.native_title_consultation,
                     mining_tenement: this.proposal.mining_tenement,
                     groups: this.proposal.groups,
+                    details_text: this.proposal.details_text,
+                    exclusive_use_text: this.proposal.exclusive_use_text,
+                    long_term_use_text: this.proposal.long_term_use_text,
+                    consistent_purpose_text:
+                        this.proposal.consistent_purpose_text,
+                    consistent_plan_text: this.proposal.consistent_plan_text,
+                    clearing_vegetation_text:
+                        this.proposal.clearing_vegetation_text,
+                    ground_disturbing_works_text:
+                        this.proposal.ground_disturbing_works_text,
+                    heritage_site_text: this.proposal.heritage_site_text,
+                    environmentally_sensitive_text:
+                        this.proposal.environmentally_sensitive_text,
+                    wetlands_impact_text: this.proposal.wetlands_impact_text,
+                    building_required_text:
+                        this.proposal.building_required_text,
+                    significant_change_text:
+                        this.proposal.significant_change_text,
+                    aboriginal_site_text: this.proposal.aboriginal_site_text,
+                    native_title_consultation_text:
+                        this.proposal.native_title_consultation_text,
+                    mining_tenement_text: this.proposal.mining_tenement_text,
                 };
-                payload.proposal.details_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.details_text.detailsText;
-                payload.proposal.exclusive_use_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.exclusive_use_text.detailsText;
-                payload.proposal.long_term_use_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.long_term_use_text.detailsText;
-                payload.proposal.consistent_purpose_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.consistent_purpose_text.detailsText;
-                payload.proposal.consistent_plan_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.consistent_plan_text.detailsText;
-                payload.proposal.clearing_vegetation_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.clearing_vegetation_text.detailsText;
-                payload.proposal.ground_disturbing_works_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.ground_disturbing_works_text.detailsText;
-                payload.proposal.heritage_site_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.heritage_site_text.detailsText;
-                payload.proposal.environmentally_sensitive_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.environmentally_sensitive_text.detailsText;
-                payload.proposal.wetlands_impact_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.wetlands_impact_text.detailsText;
-                payload.proposal.building_required_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.building_required_text.detailsText;
-                payload.proposal.significant_change_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.significant_change_text.detailsText;
-                payload.proposal.aboriginal_site_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.aboriginal_site_text.detailsText;
-                payload.proposal.native_title_consultation_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.native_title_consultation_text.detailsText;
-                payload.proposal.mining_tenement_text =
-                    this.$refs.application_form.$refs.registration_of_interest.$refs.mining_tenement_text.detailsText;
             } else if (this.leaseLicence) {
                 if (
                     this.proposal.groups.find(
@@ -492,13 +484,14 @@ export default {
                 }
 
                 payload.proposal.key_personnel_text =
-                    this.$refs.application_form.$refs.lease_licence.$refs.key_personnel_text.detailsText;
+                    this.proposal.key_personnel_text;
                 payload.proposal.key_milestones_text =
-                    this.$refs.application_form.$refs.lease_licence.$refs.key_milestones_text.detailsText;
+                    this.proposal.key_milestones_text;
                 payload.proposal.risk_factors_text =
-                    this.$refs.application_form.$refs.lease_licence.$refs.risk_factors_text.detailsText;
+                    this.proposal.risk_factors_text;
                 payload.proposal.legislative_requirements_text =
-                    this.$refs.application_form.$refs.lease_licence.$refs.legislative_requirements_text.detailsText;
+                    this.proposal.legislative_requirements_text;
+
                 payload.proposal.proponent_reference_number =
                     this.proposal.proponent_reference_number;
                 payload.proposal.groups = this.proposal.groups;
@@ -519,8 +512,9 @@ export default {
                         .fire({
                             title: 'Save Proposal',
                             text: warning_text,
-                            icon: 'warning',
+                            icon: 'question',
                             showCancelButton: true,
+                            reverseButtons: true,
                             confirmButtonText: 'Continue',
                         })
                         .then(async (result) => {

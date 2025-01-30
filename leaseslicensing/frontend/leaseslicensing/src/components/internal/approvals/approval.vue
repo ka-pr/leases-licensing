@@ -318,7 +318,7 @@
     </div>
 </template>
 <script>
-// import datatable from '@vue-utils/datatable.vue';
+import { v4 as uuid } from 'uuid';
 import CommsLogs from '@common-utils/comms_logs.vue';
 import Applicant from '@/components/common/applicant.vue';
 import OrganisationApplicant from '@/components/common/organisation_applicant.vue';
@@ -334,7 +334,6 @@ import currency from 'currency.js';
 export default {
     name: 'ApprovalDetail',
     components: {
-        // datatable,
         CommsLogs,
         FormSection,
         Applicant,
@@ -347,20 +346,19 @@ export default {
     },
     data() {
         let vm = this;
-        vm._uid = vm._.uid; // Vue3
         return {
             showExpired: false,
-            moorings_datatable_id: 'moorings-datatable-' + vm._uid,
-            ml_vessels_datatable_id: 'ml-vessels-datatable-' + vm._uid,
+            moorings_datatable_id: 'moorings-datatable-' + uuid(),
+            ml_vessels_datatable_id: 'ml-vessels-datatable-' + uuid(),
             ml_authorised_users_datatable_id:
-                'ml-authorised-users-datatable-' + vm._uid,
+                'ml-authorised-users-datatable-' + uuid(),
             loading: [],
             approval: null,
             DATE_TIME_FORMAT: 'DD/MM/YYYY HH:mm:ss',
-            adBody: 'adBody' + vm._uid,
-            pBody: 'pBody' + vm._uid,
-            cBody: 'cBody' + vm._uid,
-            oBody: 'oBody' + vm._uid,
+            adBody: 'adBody' + uuid(),
+            pBody: 'pBody' + uuid(),
+            cBody: 'cBody' + uuid(),
+            oBody: 'oBody' + uuid(),
             org: {
                 address: {},
             },
@@ -976,7 +974,7 @@ export default {
             Swal.fire({
                 title: 'Cancel Editing Invoicing Details',
                 text: 'Are you sure you want to cancel editing invoicing details (any unsaved changes may be lost)?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 reverseButtons: true,
                 confirmButtonText: 'Cancel Editing',

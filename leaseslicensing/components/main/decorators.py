@@ -25,6 +25,7 @@ def basic_exception_handler(func):
         except serializers.ValidationError as e:
             raise e
         except Exception as e:
+            logger.exception(e)
             if settings.DEBUG:
                 detail = {
                     "user message (settings.API_EXCEPTION_MESSAGE)": settings.API_EXCEPTION_MESSAGE,

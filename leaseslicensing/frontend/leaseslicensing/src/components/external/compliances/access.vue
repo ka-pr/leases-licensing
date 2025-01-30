@@ -394,6 +394,7 @@
 </template>
 <script>
 import FormSection from '@/components/forms/section_toggle.vue';
+import { v4 as uuid } from 'uuid';
 import { api_endpoints, constants, helpers } from '@/utils/hooks';
 import alert from '@vue-utils/alert.vue';
 
@@ -411,7 +412,6 @@ export default {
         });
     },
     data() {
-        let vm = this;
         return {
             title: '',
             form: null,
@@ -422,8 +422,8 @@ export default {
             hasAmendmentRequest: false,
             errors: false,
             errorString: '',
-            pdBody: 'pdBody' + vm._uid,
-            oBody: 'oBody' + vm._uid,
+            pdBody: 'pdBody' + uuid(),
+            oBody: 'oBody' + uuid(),
             validation_form: null,
             files: [
                 {

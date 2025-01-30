@@ -374,11 +374,11 @@ export default {
                     'Status',
                     'Expiry Date',
                     'Document',
-                    'Action',
                     'Original Lease/License Number',
                     'Site Name',
                     'Groups',
                     'Categories',
+                    'Action',
                 ];
             } else if (this.is_internal) {
                 return [
@@ -390,11 +390,11 @@ export default {
                     'Status',
                     'Expiry Date',
                     'Document',
-                    'Action',
                     'Original Lease/License Number',
                     'Site Name',
                     'Groups',
                     'Categories',
+                    'Action',
                 ];
             } else {
                 console.error('Unknown datatable level: ' + this.level);
@@ -500,7 +500,7 @@ export default {
                 render: function (row, type, full) {
                     return full.holder;
                 },
-                name: 'current_proposal__proposalapplicant__first_name, current_proposal__proposalapplicant__last_name',
+                name: 'current_proposal__proposalapplicant__first_name, current_proposal__proposalapplicant__last_name, current_proposal__org_applicant__ledger_organisation_name',
             };
         },
         columnLinkedApplications: function () {
@@ -634,7 +634,7 @@ export default {
                             links += `<a href='/external/approval/${full.id}'>View</a><br/>`;
                             if (full.can_action || vm.debug) {
                                 if (full.can_amend || vm.debug) {
-                                    links += `<a href='#${full.id}' data-amend-approval='${full.current_proposal}'>Amend</a><br/>`;
+                                    links += `<a href='#${full.id}' data-amend-approval='${full.current_proposal.id}'>Amend</a><br/>`;
                                 } else if (
                                     full.has_draft_amendment &&
                                     full.active_amendment.processing_status ==
@@ -643,7 +643,7 @@ export default {
                                     links += `<a href='/external/proposal/${full.active_amendment.id}'>Continue Amendment Application</a><br/>`;
                                 } else if (full.has_pending_renewal) {
                                     if (!full.has_draft_renewal) {
-                                        links += `<a href='#${full.id}' data-renew-approval='${full.current_proposal}'>Renew</a><br/>`;
+                                        links += `<a href='#${full.id}' data-renew-approval='${full.current_proposal.id}'>Renew</a><br/>`;
                                     } else if (
                                         full.active_amendment
                                             .processing_status ==
@@ -670,7 +670,7 @@ export default {
                             full.can_reissue &&
                             full.current_proposal
                         ) {
-                            links += `<a href='#${full.id}' data-reissue-approval='${full.current_proposal}'>Reissue</a><br/>`;
+                            links += `<a href='#${full.id}' data-reissue-approval='${full.current_proposal.id}'>Reissue</a><br/>`;
                         }
                         if (full.is_assessor) {
                             if (full.can_reissue && full.can_action) {
@@ -748,11 +748,11 @@ export default {
                     vm.columnStatus,
                     vm.columnExpiryDate,
                     vm.columnDocument,
-                    vm.columnAction,
                     vm.columnOriginalLeaseLicenseNumber,
                     vm.columnSite,
                     vm.columnGroups,
                     vm.columnCategories,
+                    vm.columnAction,
                 ];
             } else if (vm.is_internal) {
                 selectedColumns = [
@@ -764,11 +764,11 @@ export default {
                     vm.columnStatus,
                     vm.columnExpiryDate,
                     vm.columnDocument,
-                    vm.columnAction,
                     vm.columnOriginalLeaseLicenseNumber,
                     vm.columnSite,
                     vm.columnGroups,
                     vm.columnCategories,
+                    vm.columnAction,
                 ];
             }
             let buttons = [];
@@ -779,7 +779,7 @@ export default {
                     text: '<i class="fa-solid fa-download"></i> Excel',
                     className: 'btn btn-primary rounded me-2',
                     exportOptions: {
-                        columns: ':visible',
+                        columns: ':not(.no-export)',
                     },
                 },
                 {
@@ -787,7 +787,7 @@ export default {
                     text: '<i class="fa-solid fa-download"></i> CSV',
                     className: 'btn btn-primary rounded',
                     exportOptions: {
-                        columns: ':visible',
+                        columns: ':not(.no-export)',
                     },
                 },
             ];
@@ -803,8 +803,15 @@ export default {
                 },
                 responsive: true,
                 serverSide: true,
-                //searching: false,
                 searching: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                        className: 'no-export',
+                    },
+                ],
                 ajax: {
                     url:
                         api_endpoints.approvals_paginated_list +
@@ -1284,7 +1291,7 @@ export default {
                 .fire({
                     title: 'Reissue Approval',
                     text: 'Are you sure you want to reissue this approval?',
-                    icon: 'warning',
+                    icon: 'question',
                     showCancelButton: true,
                     reverseButtons: true,
                     confirmButtonText: 'Reissue Approval',
@@ -1325,9 +1332,10 @@ export default {
             Swal.fire({
                 title: 'Reinstate Approval',
                 text: 'Are you sure you want to reinstate this approval?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Reinstate approval',
+                reverseButtons: true,
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     let url = helpers.add_endpoint_json(
@@ -1455,7 +1463,7 @@ export default {
             Swal.fire({
                 title: 'Renew Approval',
                 text: 'Are you sure you want to renew this approval?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 reverseButtons: true,
                 confirmButtonText: 'Renew approval',
@@ -1510,9 +1518,10 @@ export default {
             Swal.fire({
                 title: 'Amend Approval',
                 text: 'Are you sure you want to amend this approval?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Amend approval',
+                reverseButtons: true,
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     let url =

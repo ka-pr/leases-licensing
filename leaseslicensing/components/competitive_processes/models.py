@@ -376,7 +376,7 @@ class CompetitiveProcess(LicensingModelVersioned):
                 CompetitiveProcessParty.objects.get(pk=winner_id) if winner_id else None
             )
         except CompetitiveProcessParty.DoesNotExist:
-            logger.warn(f"Winning party {winner_id} does not exist.")
+            logger.warning(f"Winning party {winner_id} does not exist.")
             winning_party = None
 
         # Get the generated proposals for the winning party or an empty Proposal queryset
@@ -399,7 +399,7 @@ class CompetitiveProcess(LicensingModelVersioned):
         # May happen if the competitive process has a selected winner but has been discarded,
         # i.e. no proposal has been generated
         if winning_party and len(generated_proposals) == 0:
-            logger.warn("No generated proposals found for the winning party.")
+            logger.warning("No generated proposals found for the winning party.")
 
         # Get the generated lease/license proposal / generated proposal
         # that is still active (not discarded)

@@ -7,6 +7,7 @@ that may be useful depending on the type of charge method being used.
 (i.e. If an approval starts on the 5th of April 2030 the last day of that sequential year is the 4th of April 2031)
 
 """
+
 import calendar
 import datetime
 import logging
@@ -365,6 +366,11 @@ def generate_ledger_invoice(invoice: Invoice) -> None:
 
     if not approval.approval_type.gst_free:
         price_excl_tax = price_incl_tax - gst_from_total(price_incl_tax)
+
+    if settings.DEBUG:
+        # Convert to int for testing purposes as ledger expects only whole numbers
+        price_incl_tax = int(price_incl_tax)
+        price_excl_tax = int(price_excl_tax)
 
     ledger_order_lines = []
 

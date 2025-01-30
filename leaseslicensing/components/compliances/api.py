@@ -50,6 +50,7 @@ from leaseslicensing.components.main.models import (
     ApplicationType,
     upload_protected_files_storage,
 )
+from leaseslicensing.components.organisations.utils import get_organisation_ids_for_user
 from leaseslicensing.components.proposals.api import ProposalRenderer
 from leaseslicensing.components.proposals.serializers import SendReferralSerializer
 from leaseslicensing.helpers import is_compliance_referee, is_customer, is_internal
@@ -125,10 +126,18 @@ class ComplianceFilterBackend(LedgerDatatablesFilterBackend):
             queryset = queryset.filter(approval__approval_type__id=filter_approval_type)
 
         queryset = self.apply_request(
-            request, queryset, view, ledger_lookup_fields=["ind_applicant"]
+            request,
+            queryset,
+            view,
+            ledger_lookup_fields=[
+                "approval__current_proposal__ind_applicant",
+                "assigned_to",
+            ],
         )
 
+        setattr(view, "_datatables_filtered_count", queryset.count())
         setattr(view, "_datatables_total_count", total_count)
+
         return queryset
 
 
@@ -152,9 +161,13 @@ class CompliancePaginatedViewSet(viewsets.ReadOnlyModelViewSet):
             ).filter(referrals__referral=self.request.user.id)
 
         if is_customer(self.request):
+            organisation_ids = get_organisation_ids_for_user(self.request.user.id)
             queryset = queryset.exclude(
                 processing_status=Compliance.PROCESSING_STATUS_DISCARDED
-            ).filter(proposal__submitter=self.request.user.id)
+            ).filter(
+                Q(proposal__submitter=self.request.user.id)
+                | Q(proposal__org_applicant_id__in=organisation_ids)
+            )
 
         target_organisation_id = self.request.query_params.get(
             "target_organisation_id", None
@@ -165,8 +178,10 @@ class CompliancePaginatedViewSet(viewsets.ReadOnlyModelViewSet):
             and int(target_organisation_id) > 0
         ):
             target_organisation_id = int(target_organisation_id)
-            queryset = queryset.exclude(approval__org_applicant__isnull=True).filter(
-                approval__org_applicant__id=target_organisation_id
+            queryset = queryset.exclude(
+                approval__current_proposal__org_applicant__isnull=True
+            ).filter(
+                approval__current_proposal__org_applicant__id=target_organisation_id
             )
 
         return queryset
@@ -601,7 +616,7 @@ class ComplianceViewSet(UserActionLoggingViewset):
             serializer = ComplianceSerializer(instance, context={"request": request})
         return Response(serializer.data)
 
-    @logging_action(
+    @list_route(
         methods=[
             "GET",
         ],

@@ -54,7 +54,6 @@
                                         :multiple="false"
                                         :searchable="true"
                                         :loading="loadingApprovals"
-                                        :required="true"
                                         @select="
                                             populateOracleCodeFromApproval()
                                         "
@@ -228,7 +227,6 @@
                                         :hide-selected="true"
                                         :multiple="false"
                                         :searchable="true"
-                                        :required="true"
                                         :loading="loadingOracleCodes"
                                         :disabled="false"
                                     />

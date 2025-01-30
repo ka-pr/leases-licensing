@@ -2,12 +2,12 @@
 
 {%  block content %}
      {% if linked_by.email != user.email %}
-        <p>Your have been made Company User to:</p>
+        <p>You have been made user of the following organisation:</p>
         <p><strong>Organisation : {{ organisation.name }}</strong></p>
         <p><strong>ABN : {{ organisation.abn}}</strong></p>
         <p>You were linked to this organisation by {{linked_by.get_full_name}}({{linked_by.email}}).</p>
     {% else %}
-        <p>You have linked yourself to:</p>
+        <p>You have made yourself a regular user of the following organisation:</p>
         <p><strong>Organisation : {{ organisation.name }}</strong></p>
         <p><strong>ABN : {{ organisation.abn}}</strong></p>
     {% endif %}

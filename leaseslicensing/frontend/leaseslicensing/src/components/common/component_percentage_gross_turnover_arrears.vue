@@ -355,7 +355,7 @@ export default {
         },
         invoicingRepetitionTypeKey: {
             type: String,
-            required: true,
+            required: false,
         },
         proposalProcessingStatusId: {
             type: String,

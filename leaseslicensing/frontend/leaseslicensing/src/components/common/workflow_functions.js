@@ -192,10 +192,11 @@ export async function declineProposal(proposal) {
         .fire({
             title: `Confirm Decline of Proposal ${proposal.lodgement_number}`,
             text: 'Are you sure you want to decline this proposal?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Decline Proposal',
             confirmButtonColor: '#dc3545',
+            reverseButtons: true,
         })
         .then(async (result) => {
             if (result.isConfirmed) {
@@ -224,7 +225,7 @@ export async function discardProposal(proposal_id, lodgement_number) {
         .fire({
             title: `Confirm Discard of Proposal ${lodgement_number}`,
             text: 'Are you sure you want to discard this proposal?',
-            icon: 'warning',
+            icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Discard Proposal',
             confirmButtonColor: '#dc3545',

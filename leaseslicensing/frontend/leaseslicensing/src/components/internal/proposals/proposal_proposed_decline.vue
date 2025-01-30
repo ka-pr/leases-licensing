@@ -40,8 +40,8 @@
                                     ref="decline_reason"
                                     :key="uuid"
                                     :proposal-data="proposedDecisionDetails"
-                                    placeholder_text="Add some details here"
-                                    :can_view_richtext_src="true"
+                                    placeholder-text="Add some details here"
+                                    @text-changed="decline.reason = $event"
                                 />
                             </div>
                         </div>
@@ -134,6 +134,15 @@ export default {
             detailsTexts: {},
         };
     },
+    watch: {
+        isModalOpen: function (newVal) {
+            if (newVal) {
+                this.$nextTick(() => {
+                    this.$refs.decline_reason.focus();
+                });
+            }
+        },
+    },
     computed: {
         proposedDeclineDocumentsUrl: function () {
             return helpers.add_endpoint_join(
@@ -220,6 +229,11 @@ export default {
             }
         });
     },
+    mounted: function () {
+        this.$nextTick(() => {
+            this.$refs.decline_reason.focus();
+        });
+    },
     methods: {
         ok: function () {
             let vm = this;
@@ -233,7 +247,6 @@ export default {
             this.decline = {};
             this.errors = false;
         },
-
         check_status: function () {
             let vm = this;
             if (vm.processing_status == 'With Approver') return true;
@@ -241,7 +254,6 @@ export default {
         },
         sendData: function () {
             this.errors = false;
-            this.decline.reason = this.$refs.decline_reason.detailsText;
             let decline = JSON.parse(JSON.stringify(this.decline));
             this.decliningProposal = true;
             this.$nextTick(async () => {

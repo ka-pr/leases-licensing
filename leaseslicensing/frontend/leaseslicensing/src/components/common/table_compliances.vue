@@ -289,8 +289,9 @@ export default {
             return {
                 data: 'holder',
                 orderable: false,
-                searchable: false,
+                searchable: true,
                 visible: true,
+                name: 'approval__current_proposal__ind_applicant__first_name, approval__current_proposal__ind_applicant__last_name, approval__current_proposal__org_applicant__ledger_organisation_name',
                 render: function (row, type, full) {
                     //return full.approval_submitter;
                     return full.holder;
@@ -438,7 +439,7 @@ export default {
                 render: function (row, type, full) {
                     return full.assigned_to_name;
                 },
-                name: 'assigned_to',
+                name: 'assigned_to__first_name, assigned_to__last_name',
             };
         },
         applicableColumns: function () {
@@ -486,7 +487,7 @@ export default {
                     text: '<i class="fa-solid fa-download"></i> Excel',
                     className: 'btn btn-primary rounded me-2',
                     exportOptions: {
-                        columns: ':visible',
+                        columns: ':not(.no-export)',
                     },
                 },
                 {
@@ -494,7 +495,7 @@ export default {
                     text: '<i class="fa-solid fa-download"></i> CSV',
                     className: 'btn btn-primary rounded',
                     exportOptions: {
-                        columns: ':visible',
+                        columns: ':not(.no-export)',
                     },
                 },
             ];
@@ -507,7 +508,14 @@ export default {
                 responsive: true,
                 serverSide: true,
                 searching: true,
-
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    {
+                        responsivePriority: 2,
+                        targets: -1,
+                        className: 'no-export',
+                    },
+                ],
                 ajax: {
                     url: vm.ajaxUrl,
                     dataSrc: 'data',

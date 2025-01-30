@@ -1067,7 +1067,7 @@ export default {
             swal.fire({
                 title: 'Send Referral',
                 text: 'Are you sure you want to send to referral?',
-                icon: 'warning',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Send Referral',
                 reverseButtons: true,
