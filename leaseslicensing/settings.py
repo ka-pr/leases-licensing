@@ -689,3 +689,9 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = env(
     "SECURE_CROSS_ORIGIN_OPENER_POLICY",
     "same-origin",
 )
+
+# Set USE_X_FORWARDED_HOST env to True to ensure that if the request is https
+# then urls generated for file fields are also https
+USE_X_FORWARDED_HOST = env("USE_X_FORWARDED_HOST", False)
+if USE_X_FORWARDED_HOST:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
