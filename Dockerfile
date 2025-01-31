@@ -147,7 +147,7 @@ COPY --chown=oim:oim manage.py manage.sh ./
 RUN touch /app/.env && \
     poetry run python manage.py collectstatic --no-input
 
-FROM install_build_vue3_leaseslicensing as launch_leaseslicensing
+FROM collect_static_leaseslicensing as launch_leaseslicensing
 
 COPY --chown=oim:oim gunicorn.ini.py python-cron ./
 EXPOSE 8080
