@@ -72,7 +72,9 @@ export default defineConfig({
                 chunkFileNames: 'js/[name].js',
                 assetFileNames: '[ext]/[name].[ext]',
             },
-            external: ['jquery', 'Bootstrap', 'jQuery', 'datatables'],
+        },
+        optimizeDeps: {
+            exclude: ['bootstrap', 'jquery', 'popper.js', 'popper'],
         },
         emptyOutDir: true,
     },

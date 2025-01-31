@@ -26,6 +26,9 @@
         {% endblock %}
         {% block extra_css %}
             <link rel="stylesheet" href="{% static 'leaseslicensing/css/base.css' %}?v={{build_tag}}">
+            {% if not use_vite_dev_server %}
+            <link rel="stylesheet" href="{% static 'leaseslicensing_vue/css/main.css' %}?v={{ build_tag }}" />
+            {% endif %}
         {% endblock %}
 
         {% block custom_js %}
