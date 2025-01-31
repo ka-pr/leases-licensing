@@ -7,7 +7,9 @@ import tomli
 from confy import env
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-confy.read_environment_file(BASE_DIR + "/.env")
+if os.path.exists(BASE_DIR + "/.env"):
+    confy.read_environment_file(BASE_DIR + "/.env")
+
 os.environ.setdefault("BASE_DIR", BASE_DIR)
 
 from ledger_api_client.settings_base import *  # noqa: F403
