@@ -31,6 +31,12 @@ def trigger_error(request):
 
 # API patterns
 router = routers.DefaultRouter()
+router.include_root_view = False
+
+if settings.INCLUDE_ROOT_VIEW:
+    router.include_root_view = True
+
+# API patterns
 router.register("organisations", org_api.OrganisationViewSet, basename="organisations")
 router.register("proposal", proposal_api.ProposalViewSet, basename="proposal")
 router.register("identifiers", tenure_api.IdentifierViewSet, basename="identifiers")

@@ -81,7 +81,9 @@ ADD_REVERSION_ADMIN = True
 
 WSGI_APPLICATION = "leaseslicensing.wsgi.application"
 
-if DEBUG:
+INCLUDE_BROWSABLE_API_RENDERER = env("INCLUDE_BROWSABLE_API_RENDERER", False)
+
+if INCLUDE_BROWSABLE_API_RENDERER:
     rest_framework_renderer_classes = (
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
@@ -695,3 +697,5 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = env(
 USE_X_FORWARDED_HOST = env("USE_X_FORWARDED_HOST", False)
 if USE_X_FORWARDED_HOST:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+INCLUDE_ROOT_VIEW = env("INCLUDE_ROOT_VIEW", False)
