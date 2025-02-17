@@ -5,6 +5,7 @@ import sys
 import confy
 import tomli
 from confy import env
+from decouple import Csv, config
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 if os.path.exists(BASE_DIR + "/.env"):
@@ -699,3 +700,5 @@ if USE_X_FORWARDED_HOST:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 INCLUDE_ROOT_VIEW = env("INCLUDE_ROOT_VIEW", False)
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
